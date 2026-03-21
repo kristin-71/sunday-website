@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sunday — For Dog Parents</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined" rel="stylesheet">
+<style>
+  :root {
+    --sage: #8FAF9C;
+    --sage-d: #4A7A62;
+    --sage-l: #B3CCBE;
+    --sage-p: #EAF3EE;
+    --cream: #F6F3EC;
+    --sand: #D7C9B3;
+    --grey: #E6E3DC;
+    --ink: #222222;
+    --stone: #888880;
+    --mist: #F0EDE6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 48px;
+    background: var(--cream);
+    border-bottom: 1px solid var(--grey);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Sora', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.5px;
+    text-decoration: none;
+  }
+
+  .nav-logo img {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--stone);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--ink); }
+
+  .nav-cta {
+    background: var(--ink);
+    color: white !important;
+    padding: 10px 20px;
+    border-radius: 100px;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    min-height: calc(100vh - 65px);
+    align-items: center;
+  }
+
+  .hero-left {
+    padding: 80px 64px 80px 80px;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--sage-p);
+    color: var(--sage-d);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 28px;
+  }
+
+  .hero-badge-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--sage-d);
+    border-radius: 50%;
+  }
+
+  .hero-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 60px;
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    color: var(--ink);
+    margin-bottom: 24px;
+  }
+
+  .hero-title .accent {
+    color: var(--sage-d);
+  }
+
+  .hero-sub {
+    font-size: 18px;
+    color: var(--stone);
+    line-height: 1.7;
+    max-width: 440px;
+    margin-bottom: 40px;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--ink);
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 16px 28px;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(34,34,34,0.2);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--stone);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 16px 4px;
+    text-decoration: none;
+    border-bottom: 1.5px solid var(--grey);
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .btn-secondary:hover {
+    color: var(--ink);
+    border-color: var(--ink);
+  }
+
+  .hero-social-proof {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 40px;
+  }
+
+  .avatars {
+    display: flex;
+  }
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid var(--cream);
+    margin-right: -8px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .avatar-1 { background: #FFD4A3; }
+  .avatar-2 { background: #A3C4FF; }
+  .avatar-3 { background: #FFB3BA; }
+  .avatar-4 { background: var(--sage-l); }
+
+  .social-text {
+    font-size: 13px;
+    color: var(--stone);
+  }
+
+  .social-text strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  /* ── HERO RIGHT ── */
+  .hero-right {
+    background: var(--sage-p);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 60px 40px;
+  }
+
+  .phone-mockup {
+    width: 280px;
+    height: 560px;
+    background: white;
+    border-radius: 44px;
+    box-shadow: 0 32px 80px rgba(34,34,34,0.15), 0 0 0 1px rgba(34,34,34,0.06);
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+  }
+
+  .phone-notch {
+    width: 100px;
+    height: 28px;
+    background: white;
+    border-radius: 0 0 18px 18px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .phone-notch-pill {
+    width: 60px;
+    height: 5px;
+    background: var(--grey);
+    border-radius: 10px;
+  }
+
+  .phone-screen {
+    width: 100%;
+    height: 100%;
+    background: var(--cream);
+    padding: 36px 0 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .screen-header {
+    padding: 0 20px 16px;
+    border-bottom: 1px solid var(--grey);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .screen-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .screen-sub {
+    font-size: 11px;
+    color: var(--stone);
+    margin-top: 2px;
+  }
+
+  .screen-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--grey);
+  }
+
+  .screen-body {
+    flex: 1;
+    padding: 16px 20px;
+    overflow: hidden;
+  }
+
+  /* Health card in mockup */
+  .health-card {
+    background: white;
+    border-radius: 16px;
+    padding: 14px;
+    margin-bottom: 10px;
+    border: 1px solid var(--grey);
+  }
+
+  .health-card-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .health-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .health-icon.green { background: var(--sage-p); }
+  .health-icon.amber { background: #FFF4E3; }
+  .health-icon.blue { background: #EEF3FF; }
+
+  .health-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .health-date {
+    font-size: 10px;
+    color: var(--stone);
+    margin-top: 1px;
+  }
+
+  .health-badge {
+    margin-left: auto;
+    font-size: 9px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 100px;
+    background: var(--sage-p);
+    color: var(--sage-d);
+  }
+
+  .health-badge.amber {
+    background: #FFF4E3;
+    color: #B07A00;
+  }
+
+  .progress-bar {
+    height: 4px;
+    background: var(--grey);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--sage);
+    border-radius: 10px;
+  }
+
+  .curate-card {
+    background: white;
+    border-radius: 16px;
+    padding: 12px 14px;
+    border: 1px solid var(--grey);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+
+  .curate-emoji {
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+
+  .curate-info { flex: 1; }
+
+  .curate-name {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .curate-brand {
+    font-size: 10px;
+    color: var(--stone);
+    margin-top: 1px;
+  }
+
+  .curate-btn {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--sage-d);
+    background: var(--sage-p);
+    padding: 5px 10px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+
+  .screen-tabs {
+    display: flex;
+    border-top: 1px solid var(--grey);
+    padding: 8px 0 4px;
+    background: white;
+  }
+
+  .tab {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    font-size: 8px;
+    color: var(--stone);
+    font-weight: 500;
+  }
+
+  .tab.active { color: var(--sage-d); }
+
+  .tab-icon { font-size: 20px; font-family: 'Material Icons'; font-style: normal; line-height: 1; }
+
+  /* floating card behind phone */
+  .float-card {
+    position: absolute;
+    background: white;
+    border-radius: 16px;
+    padding: 12px 16px;
+    box-shadow: 0 8px 32px rgba(34,34,34,0.1);
+    z-index: 3;
+    border: 1px solid var(--grey);
+  }
+
+  .float-card-1 {
+    bottom: 120px;
+    left: 20px;
+    width: 160px;
+  }
+
+  .float-card-2 {
+    top: 120px;
+    right: 20px;
+    width: 150px;
+  }
+
+  .float-label {
+    font-size: 10px;
+    color: var(--stone);
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  .float-value {
+    font-family: 'Sora', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .float-sub {
+    font-size: 10px;
+    color: var(--sage-d);
+    margin-top: 2px;
+    font-weight: 500;
+  }
+
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--sage-l);
+    opacity: 0.4;
+    z-index: 1;
+  }
+
+  .blob-1 { width: 300px; height: 300px; top: -80px; right: -80px; }
+  .blob-2 { width: 200px; height: 200px; bottom: -40px; left: -40px; }
+
+  .hero-mascot {
+    position: absolute;
+    bottom: 20px;
+    right: 24px;
+    width: 130px;
+    z-index: 4;
+    filter: drop-shadow(0 8px 20px rgba(34,34,34,0.15));
+  }
+
+  /* ── FEATURES ── */
+  .features {
+    padding: 120px 80px;
+    background: white;
+  }
+
+  .section-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--sage-d);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 44px;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    color: var(--ink);
+    max-width: 520px;
+    line-height: 1.1;
+    margin-bottom: 64px;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .feature-card {
+    background: var(--cream);
+    border-radius: 24px;
+    padding: 32px;
+    border: 1px solid var(--grey);
+  }
+
+  .feature-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    background: var(--sage-p);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    margin-bottom: 20px;
+  }
+
+  .feature-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+
+  .feature-desc {
+    font-size: 14px;
+    color: var(--stone);
+    line-height: 1.65;
+  }
+
+  /* ── CURATE SECTION ── */
+  .curate-section {
+    padding: 120px 80px;
+    background: var(--ink);
+    color: white;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .curate-section .section-eyebrow { color: var(--sage-l); }
+
+  .curate-section .section-title {
+    color: white;
+    margin-bottom: 20px;
+  }
+
+  .curate-desc {
+    font-size: 16px;
+    color: var(--stone);
+    line-height: 1.7;
+    margin-bottom: 32px;
+  }
+
+  .curate-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tag {
+    background: rgba(255,255,255,0.08);
+    color: var(--sage-l);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 100px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .curate-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .curate-product-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: background 0.2s;
+  }
+
+  .curate-product-card:hover {
+    background: rgba(255,255,255,0.1);
+  }
+
+  .curate-product-emoji { font-size: 28px; }
+
+  .curate-product-info { flex: 1; }
+
+  .curate-product-name {
+    font-family: 'Sora', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 3px;
+  }
+
+  .curate-product-brand {
+    font-size: 12px;
+    color: var(--stone);
+  }
+
+  .curate-product-badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 100px;
+    background: var(--sage-p);
+    color: var(--sage-d);
+  }
+
+  /* ── WAITLIST ── */
+  .waitlist {
+    padding: 120px 80px;
+    background: var(--sage-p);
+    text-align: center;
+  }
+
+  .waitlist .section-title {
+    margin: 0 auto 16px;
+    max-width: 480px;
+  }
+
+  .waitlist-sub {
+    font-size: 17px;
+    color: var(--stone);
+    margin-bottom: 48px;
+  }
+
+  .waitlist-form {
+    display: flex;
+    gap: 12px;
+    max-width: 440px;
+    margin: 0 auto;
+  }
+
+  .waitlist-input {
+    flex: 1;
+    padding: 16px 20px;
+    border-radius: 100px;
+    border: 1.5px solid var(--grey);
+    background: white;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .waitlist-input:focus { border-color: var(--sage); }
+  .waitlist-input::placeholder { color: var(--stone); }
+
+  .waitlist-btn {
+    padding: 16px 28px;
+    background: var(--ink);
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 100px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: transform 0.15s;
+    white-space: nowrap;
+  }
+
+  .waitlist-btn:hover { transform: translateY(-1px); }
+
+  .waitlist-note {
+    font-size: 13px;
+    color: var(--stone);
+    margin-top: 16px;
+  }
+
+  .waitlist-mascot {
+    width: 120px;
+    margin: 0 auto 24px;
+    display: block;
+    filter: drop-shadow(0 6px 16px rgba(34,34,34,0.1));
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: white;
+    padding: 48px 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-logo {
+    font-family: 'Sora', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-size: 13px;
+    color: var(--stone);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: white; }
+
+  .footer-copy {
+    font-size: 12px;
+    color: var(--stone);
+  }
+
+  /* ── MASCOT ── */
+  .mascot-face {
+    font-size: 72px;
+    line-height: 1;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  /* Responsive hint */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { height: 500px; }
+    .features-grid { grid-template-columns: 1fr; }
+    .curate-section { grid-template-columns: 1fr; }
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <img src="/Users/kristin/Sunday/assets/icon.png" alt="Sunday">
+    Sunday
+  </a>
+  <ul class="nav-links">
+    <li><a href="#">Features</a></li>
+    <li><a href="#">For Dog Parents</a></li>
+    <li><a href="#">Curate</a></li>
+    <li><a href="#" class="nav-cta">Join Waitlist</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-badge">
+      <div class="hero-badge-dot"></div>
+      Now in early access · Singapore
+    </div>
+
+    <h1 class="hero-title">
+      Every dog<br>
+      deserves a<br>
+      <span class="accent">Sunday.</span>
+    </h1>
+
+    <p class="hero-sub">
+      Built by a pawrent, for pawrents. Find your next favourite spot, never miss a vaccine, and keep every memory — all in one place.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#" class="btn-primary">
+        🐾 Join the Waitlist
+      </a>
+      <a href="#" class="btn-secondary">
+        See how it works →
+      </a>
+    </div>
+
+    <div class="hero-social-proof">
+      <div class="avatars">
+        <div class="avatar avatar-1">🐕</div>
+        <div class="avatar avatar-2">🐩</div>
+        <div class="avatar avatar-3">🦮</div>
+        <div class="avatar avatar-4">🐾</div>
+      </div>
+      <p class="social-text"><strong>1,200+ dog parents</strong> already on the waitlist</p>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <!-- Floating card 1 -->
+    <div class="float-card float-card-1">
+      <div class="float-label">💉 Vaccination due</div>
+      <div class="float-value">14 days</div>
+      <div class="float-sub">Rabies · Sunday</div>
+    </div>
+
+    <!-- Phone -->
+    <div class="phone-mockup">
+      <div class="phone-notch"><div class="phone-notch-pill"></div></div>
+      <div class="phone-screen">
+
+        <!-- Explore header -->
+        <div style="padding:0 16px 10px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--grey);">
+          <div>
+            <img src="/Users/kristin/sunday_app/assets/images/sunday-logo-transparent.png" style="height:20px;object-fit:contain;display:block;">
+            <div style="font-size:9px;color:var(--stone);margin-top:2px;">Good morning, Kristin</div>
+          </div>
+          <div style="width:30px;height:30px;background:var(--sage-p);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;">👤</div>
+        </div>
+
+        <div class="screen-body" style="padding:10px 12px;overflow:hidden;">
+
+          <!-- Search bar -->
+          <div style="background:var(--mist);border-radius:12px;padding:7px 10px;display:flex;align-items:center;gap:6px;margin-bottom:8px;">
+            <span style="font-size:11px;">🔍</span>
+            <span style="font-size:9px;color:var(--stone);">Search dog-friendly places...</span>
+          </div>
+
+          <!-- Category chips -->
+          <div style="display:flex;gap:5px;margin-bottom:8px;">
+            <div style="background:var(--ink);color:white;border-radius:100px;padding:4px 10px;font-size:8px;font-weight:600;">All</div>
+            <div style="background:white;border:1px solid var(--grey);border-radius:100px;padding:4px 9px;font-size:8px;color:var(--ink);">🍽 Food</div>
+            <div style="background:white;border:1px solid var(--grey);border-radius:100px;padding:4px 9px;font-size:8px;color:var(--ink);">🌳 Parks</div>
+            <div style="background:white;border:1px solid var(--grey);border-radius:100px;padding:4px 9px;font-size:8px;color:var(--ink);">🏥 Vets</div>
+          </div>
+
+          <!-- Feature cards -->
+          <div style="display:flex;gap:6px;margin-bottom:8px;">
+            <div style="flex:1;background:var(--sage-p);border:1px solid var(--sage-l);border-radius:12px;padding:8px;">
+              <div style="font-size:12px;">📌</div>
+              <div style="font-size:9px;font-weight:600;color:var(--ink);margin-top:2px;">My Collections</div>
+              <div style="font-size:7.5px;color:var(--stone);">Cafés · Parks · Vets</div>
+            </div>
+            <div style="flex:1;background:#F7F3EC;border:1px solid var(--grey);border-radius:12px;padding:8px;">
+              <div style="font-size:12px;">⭐</div>
+              <div style="font-size:9px;font-weight:600;color:var(--ink);margin-top:2px;">Sunday Scouts</div>
+              <div style="font-size:7.5px;color:var(--stone);">Community picks</div>
+            </div>
+          </div>
+
+          <!-- Results label -->
+          <div style="font-size:7.5px;font-weight:700;letter-spacing:1px;color:var(--stone);text-transform:uppercase;margin-bottom:6px;">NEAREST TO YOU · 24 spots</div>
+
+          <!-- Place card 1 -->
+          <div style="background:white;border:1px solid var(--grey);border-radius:12px;padding:10px;margin-bottom:6px;display:flex;align-items:center;gap:8px;">
+            <div style="width:42px;height:42px;background:var(--sage-p);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🍽</div>
+            <div style="flex:1;">
+              <div style="font-size:9px;font-weight:700;color:var(--ink);">Tiong Bahru Bakery <span style="color:var(--sage-d);font-size:8px;">✓</span></div>
+              <div style="font-size:8px;color:var(--stone);">📍 Tiong Bahru · $$</div>
+              <div style="font-size:7px;color:var(--stone);">Alfresco · Water bowls</div>
+            </div>
+            <div style="font-size:7.5px;color:var(--stone);">0.3 km</div>
+          </div>
+
+          <!-- Place card 2 -->
+          <div style="background:white;border:1px solid var(--grey);border-radius:12px;padding:10px;display:flex;align-items:center;gap:8px;">
+            <div style="width:42px;height:42px;background:#EEF3FF;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🌳</div>
+            <div style="flex:1;">
+              <div style="font-size:9px;font-weight:700;color:var(--ink);">Tanjong Pagar Park</div>
+              <div style="font-size:8px;color:var(--stone);">📍 Tanjong Pagar</div>
+              <div style="font-size:7px;color:var(--stone);">Off-leash area · Shade</div>
+            </div>
+            <div style="font-size:7.5px;color:var(--stone);">0.8 km</div>
+          </div>
+
+        </div>
+
+        <!-- Tab bar — exact icons from main_shell.dart -->
+        <div class="screen-tabs">
+          <div class="tab active">
+            <span class="tab-icon material-icons">compass_calibration</span>
+            Explore
+          </div>
+          <div class="tab">
+            <span class="tab-icon material-icons-outlined">map</span>
+            Map
+          </div>
+          <div class="tab">
+            <span class="tab-icon material-icons-outlined">pets</span>
+            My Pets
+          </div>
+          <div class="tab">
+            <span class="tab-icon material-icons-outlined">auto_awesome</span>
+            Ask Sunday
+          </div>
+          <div class="tab">
+            <span class="tab-icon material-icons-outlined">person</span>
+            Profile
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating card 2 -->
+    <div class="float-card float-card-2">
+      <div class="float-label">☕ Near you</div>
+      <div class="float-value">8 cafés</div>
+      <div class="float-sub">Dog-friendly · Tiong Bahru</div>
+    </div>
+
+    <!-- Mascot -->
+    <img class="hero-mascot" src="/Users/kristin/Desktop/Sunday App /mascot_happy.png" alt="Sunday mascot">
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="section-eyebrow">Everything in one place</div>
+  <h2 class="section-title">Built around your dog's whole life</h2>
+
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🏥</div>
+      <div class="feature-title">Health Vault</div>
+      <p class="feature-desc">Every vet visit. Every vaccine. Every medication. All in one place, so you never have to scramble at the clinic again.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📍</div>
+      <div class="feature-title">Explore + Map</div>
+      <p class="feature-desc">Every spot is verified by real pawrents. Find somewhere new, filter by what matters, and bring your dog somewhere they've never been.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📌</div>
+      <div class="feature-title">Pin It</div>
+      <p class="feature-desc">Spotted a café on social media? Share it to Sunday and he'll pin it to your map in seconds. No copy-pasting, no forgetting.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">✨</div>
+      <div class="feature-title">Ask Sunday</div>
+      <p class="feature-desc">Sunday knows your dog's history. Ask anything — he'll give you a real answer, and tell you when it's time to see the vet.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🧾</div>
+      <div class="feature-title">Spending Tracker</div>
+      <p class="feature-desc">Scan a receipt and Sunday does the rest. See exactly where every dollar went — vet bills, food, grooming, all of it.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🛍️</div>
+      <div class="feature-title">Curate</div>
+      <p class="feature-desc">No sponsored junk. Sunday picks a small, honest selection of products he'd actually use.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CURATE SECTION -->
+<section class="curate-section">
+  <div>
+    <div class="section-eyebrow">Sunday's Picks</div>
+    <h2 class="section-title">Products he'd actually use.</h2>
+    <p class="curate-desc">No sponsored junk. No affiliate overload. Just a small, honest selection of things Sunday loves — and thinks your dog will too. Updated when something's actually worth adding.</p>
+    <div class="curate-tags">
+      <span class="tag">🍗 Food</span>
+      <span class="tag">🩺 Health</span>
+      <span class="tag">🛁 Grooming</span>
+      <span class="tag">🎽 Gear</span>
+    </div>
+  </div>
+
+  <div class="curate-visual">
+    <div class="curate-product-card">
+      <div class="curate-product-emoji">🦴</div>
+      <div class="curate-product-info">
+        <div class="curate-product-name">Joint Support Chews</div>
+        <div class="curate-product-brand">Zesty Paws · For seniors</div>
+      </div>
+      <div class="curate-product-badge">Shop →</div>
+    </div>
+    <div class="curate-product-card">
+      <div class="curate-product-emoji">🐟</div>
+      <div class="curate-product-info">
+        <div class="curate-product-name">Omega-3 Fish Oil</div>
+        <div class="curate-product-brand">Nordic Naturals · Coat health</div>
+      </div>
+      <div class="curate-product-badge">Shop →</div>
+    </div>
+    <div class="curate-product-card">
+      <div class="curate-product-emoji">🍗</div>
+      <div class="curate-product-info">
+        <div class="curate-product-name">Grain-Free Kibble</div>
+        <div class="curate-product-brand">Orijen · Small breeds</div>
+      </div>
+      <div class="curate-product-badge">Shop →</div>
+    </div>
+    <div class="curate-product-card">
+      <div class="curate-product-emoji">🧴</div>
+      <div class="curate-product-info">
+        <div class="curate-product-name">Sensitive Skin Shampoo</div>
+        <div class="curate-product-brand">Burt's Bees · Hypoallergenic</div>
+      </div>
+      <div class="curate-product-badge">Shop →</div>
+    </div>
+  </div>
+</section>
+
+<!-- WAITLIST -->
+<section class="waitlist">
+  <img class="waitlist-mascot" src="/Users/kristin/Desktop/Sunday App /mascot_curious.png" alt="Sunday mascot">
+  <div class="section-eyebrow">Coming to Singapore</div>
+  <h2 class="section-title">Sunday is almost ready.</h2>
+  <p class="waitlist-sub">Join the waitlist and he'll come find you when he's here.</p>
+
+  <form class="waitlist-form" id="waitlist-form">
+    <input type="email" class="waitlist-input" id="waitlist-email" placeholder="your@email.com" required>
+    <button class="waitlist-btn" id="waitlist-btn">Join the waitlist</button>
+  </form>
+  <p class="waitlist-note" id="waitlist-note">No spam. Sunday promises. 🐾</p>
+
+  <script>
+    const SUPABASE_URL = 'https://svfnlgyzwramhpzqqoeh.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN2Zm5sZ3l6d3JhbWhwenFxb2VoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM2NjYzMjEsImV4cCI6MjA4OTI0MjMyMX0.bxZPiRrgW1bkc-C1X2hG7mop4JEcH5muRaE3WWqRMCI';
+
+    document.getElementById('waitlist-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('waitlist-email').value.trim();
+      const btn = document.getElementById('waitlist-btn');
+      const note = document.getElementById('waitlist-note');
+
+      btn.textContent = 'Joining...';
+      btn.disabled = true;
+
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({ email, source: 'website' })
+      });
+
+      if (res.ok) {
+        document.getElementById('waitlist-form').innerHTML = '<p style="font-family:Sora,sans-serif;font-size:18px;font-weight:700;color:#4A7A62;">Sunday will come find you. 🐾</p>';
+        note.style.display = 'none';
+      } else if (res.status === 409) {
+        note.textContent = "You're already on the list. Sunday hasn't forgotten you. 🐾";
+        btn.textContent = 'Join the waitlist';
+        btn.disabled = false;
+      } else {
+        note.textContent = 'Something went wrong. Try again.';
+        btn.textContent = 'Join the waitlist';
+        btn.disabled = false;
+      }
+    });
+  </script>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Sunday</div>
+  <ul class="footer-links">
+    <li><a href="#">Privacy Policy</a></li>
+    <li><a href="#">Terms of Service</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <div class="footer-copy">© 2026 Sunday. Made with 🐾 in Singapore.</div>
+</footer>
+
+</body>
+</html>
