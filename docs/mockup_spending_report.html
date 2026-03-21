@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sunday — Kopi's Spending Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sage: #8FAF9C;
+    --sage-d: #4A7A62;
+    --sage-p: #EAF3EE;
+    --ink: #222222;
+    --stone: #888880;
+    --divider: #E6E3DC;
+    --bg: #F6F3EC;
+    --mist: #F0EDE6;
+    --white: #FFFFFF;
+    --red: #CC3333;
+    --red-p: #FFE5E5;
+    --orange: #C87840;
+    --orange-p: #FEF0E4;
+    --blue: #5A80A0;
+    --blue-p: #E4EEF6;
+    --green: #3A8A5A;
+    --green-p: #E4F4EA;
+    --champ: #D7C9B3;
+    --champ-p: #F7F3EC;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #E8E4DC;
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 40px 24px;
+  }
+
+  /* A4 page simulation */
+  .page {
+    background: var(--white);
+    width: 595px;
+    min-height: 842px;
+    border-radius: 4px;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.15);
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Header band */
+  .report-header {
+    background: var(--ink);
+    padding: 32px 40px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .report-header::after {
+    content: '';
+    position: absolute;
+    right: -20px;
+    top: -20px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: rgba(143, 175, 156, 0.15);
+  }
+
+  .report-header::before {
+    content: '';
+    position: absolute;
+    right: 40px;
+    bottom: -40px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: rgba(143, 175, 156, 0.08);
+  }
+
+  .brand-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .brand-name {
+    font-family: 'Sora', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.3px;
+  }
+
+  .brand-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--sage);
+  }
+
+  .report-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 6px;
+  }
+
+  .report-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+
+  .report-sub {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+  }
+
+  /* Dog info strip */
+  .dog-strip {
+    background: var(--sage-p);
+    border-bottom: 1px solid var(--divider);
+    padding: 16px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .dog-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .dog-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--sage);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+  }
+
+  .dog-name {
+    font-family: 'Sora', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .dog-breed {
+    font-size: 11px;
+    color: var(--stone);
+    margin-top: 1px;
+  }
+
+  .pro-badge {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--sage-d);
+    background: var(--sage-p);
+    border: 1px solid var(--sage);
+    padding: 4px 10px;
+    border-radius: 100px;
+  }
+
+  /* Body */
+  .report-body {
+    padding: 32px 40px;
+  }
+
+  /* Total hero */
+  .total-hero {
+    background: var(--ink);
+    border-radius: 16px;
+    padding: 24px 28px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .total-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 6px;
+  }
+
+  .total-amount {
+    font-family: 'Sora', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -1px;
+  }
+
+  .total-period {
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    margin-top: 4px;
+  }
+
+  .total-delta {
+    text-align: right;
+  }
+
+  .delta-num {
+    font-family: 'Sora', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #FF8A8A;
+  }
+
+  .delta-num.down {
+    color: #7DC99A;
+  }
+
+  .delta-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+    margin-top: 2px;
+  }
+
+  /* Section title */
+  .section-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--stone);
+    margin-bottom: 12px;
+  }
+
+  /* Category breakdown */
+  .categories {
+    margin-bottom: 28px;
+  }
+
+  .category-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .cat-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+
+  .cat-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink);
+    flex: 1;
+  }
+
+  .cat-bar-wrap {
+    flex: 2;
+    height: 6px;
+    background: var(--mist);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+
+  .cat-bar {
+    height: 100%;
+    border-radius: 100px;
+    background: var(--sage);
+  }
+
+  .cat-amount {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+    text-align: right;
+    min-width: 60px;
+  }
+
+  .cat-pct {
+    font-size: 11px;
+    color: var(--stone);
+    min-width: 32px;
+    text-align: right;
+  }
+
+  /* Monthly trend */
+  .trend-section {
+    margin-bottom: 28px;
+  }
+
+  .trend-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    height: 80px;
+    margin-bottom: 6px;
+  }
+
+  .trend-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    height: 100%;
+    justify-content: flex-end;
+  }
+
+  .trend-bar {
+    width: 100%;
+    border-radius: 4px 4px 0 0;
+    background: var(--sage-p);
+    border: 1.5px solid var(--sage);
+    transition: all 0.2s;
+  }
+
+  .trend-bar.current {
+    background: var(--sage);
+    border-color: var(--sage-d);
+  }
+
+  .trend-month {
+    font-size: 9px;
+    color: var(--stone);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+
+  .trend-month.current {
+    color: var(--sage-d);
+    font-weight: 700;
+  }
+
+  .trend-amounts {
+    display: flex;
+    gap: 8px;
+  }
+
+  .trend-amt {
+    flex: 1;
+    text-align: center;
+    font-size: 9px;
+    color: var(--stone);
+  }
+
+  .trend-amt.current {
+    color: var(--sage-d);
+    font-weight: 600;
+  }
+
+  /* Top entries */
+  .entries-section {
+    margin-bottom: 28px;
+  }
+
+  .entry-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--divider);
+  }
+
+  .entry-row:last-child {
+    border-bottom: none;
+  }
+
+  .entry-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .entry-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+
+  .entry-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .entry-date {
+    font-size: 10px;
+    color: var(--stone);
+    margin-top: 1px;
+  }
+
+  .entry-amount {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  /* Insight callout */
+  .insight-box {
+    background: var(--sage-p);
+    border: 1px solid var(--sage);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 28px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .insight-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .insight-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--sage-d);
+    margin-bottom: 4px;
+  }
+
+  .insight-text {
+    font-size: 12px;
+    color: var(--ink);
+    line-height: 1.6;
+  }
+
+  /* Budget tracker */
+  .budget-section {
+    margin-bottom: 28px;
+  }
+
+  .budget-card {
+    background: var(--mist);
+    border-radius: 12px;
+    padding: 16px 20px;
+  }
+
+  .budget-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .budget-label {
+    font-size: 12px;
+    color: var(--stone);
+  }
+
+  .budget-amounts {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .budget-track {
+    height: 8px;
+    background: var(--divider);
+    border-radius: 100px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+
+  .budget-fill {
+    height: 100%;
+    border-radius: 100px;
+    background: var(--sage);
+  }
+
+  .budget-fill.warning {
+    background: var(--orange);
+  }
+
+  .budget-note {
+    font-size: 10px;
+    color: var(--stone);
+  }
+
+  /* Footer */
+  .report-footer {
+    border-top: 1px solid var(--divider);
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-brand {
+    font-family: 'Sora', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--stone);
+  }
+
+  .footer-note {
+    font-size: 10px;
+    color: var(--divider);
+  }
+
+  .footer-page {
+    font-size: 10px;
+    color: var(--stone);
+  }
+
+  /* Print button */
+  .print-btn {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    background: var(--ink);
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 12px 24px;
+    border-radius: 100px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  }
+
+  .print-btn:hover {
+    background: var(--sage-d);
+  }
+
+  @media print {
+    body { background: white; padding: 0; }
+    .page { box-shadow: none; border-radius: 0; }
+    .print-btn { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- Header -->
+  <div class="report-header">
+    <div class="brand-row">
+      <span class="brand-name">Sunday</span>
+      <div class="brand-dot"></div>
+      <span style="font-size:11px; color: rgba(255,255,255,0.4); font-weight:500;">Pro Report</span>
+    </div>
+    <div class="report-label">Monthly Spending Report</div>
+    <div class="report-title">February 2026</div>
+    <div class="report-sub">Generated 1 Mar 2026 · Confidential</div>
+  </div>
+
+  <!-- Dog strip -->
+  <div class="dog-strip">
+    <div class="dog-info">
+      <div class="dog-avatar">🐾</div>
+      <div>
+        <div class="dog-name">Kopi</div>
+        <div class="dog-breed">Miniature Schnauzer · 3 years old</div>
+      </div>
+    </div>
+    <div class="pro-badge">Sunday Pro</div>
+  </div>
+
+  <!-- Body -->
+  <div class="report-body">
+
+    <!-- Total hero -->
+    <div class="total-hero">
+      <div>
+        <div class="total-label">Total Spent</div>
+        <div class="total-amount">S$842.50</div>
+        <div class="total-period">February 2026 · 12 entries</div>
+      </div>
+      <div class="total-delta">
+        <div class="delta-num">+S$124</div>
+        <div class="delta-label">vs January</div>
+      </div>
+    </div>
+
+    <!-- Category breakdown -->
+    <div class="categories">
+      <div class="section-title">By Category</div>
+
+      <div class="category-row">
+        <div class="cat-icon" style="background:#FEF0E4;">🏥</div>
+        <div class="cat-name">Vet & Medical</div>
+        <div class="cat-bar-wrap"><div class="cat-bar" style="width:68%; background:#C87840;"></div></div>
+        <div class="cat-amount">S$572</div>
+        <div class="cat-pct" style="color:#C87840;">68%</div>
+      </div>
+
+      <div class="category-row">
+        <div class="cat-icon" style="background:#EAF3EE;">🥩</div>
+        <div class="cat-name">Food & Treats</div>
+        <div class="cat-bar-wrap"><div class="cat-bar" style="width:16%;"></div></div>
+        <div class="cat-amount">S$135</div>
+        <div class="cat-pct">16%</div>
+      </div>
+
+      <div class="category-row">
+        <div class="cat-icon" style="background:#E4EEF6;">✂️</div>
+        <div class="cat-name">Grooming</div>
+        <div class="cat-bar-wrap"><div class="cat-bar" style="width:10%; background:#5A80A0;"></div></div>
+        <div class="cat-amount">S$88</div>
+        <div class="cat-pct" style="color:#5A80A0;">10%</div>
+      </div>
+
+      <div class="category-row">
+        <div class="cat-icon" style="background:#F7F3EC;">🧸</div>
+        <div class="cat-name">Accessories</div>
+        <div class="cat-bar-wrap"><div class="cat-bar" style="width:6%; background:#D7C9B3;"></div></div>
+        <div class="cat-amount">S$47.50</div>
+        <div class="cat-pct" style="color:#888;">6%</div>
+      </div>
+    </div>
+
+    <!-- Monthly trend -->
+    <div class="trend-section">
+      <div class="section-title">6-Month Trend</div>
+      <div class="trend-bars">
+        <div class="trend-col">
+          <div class="trend-bar" style="height:42px;"></div>
+        </div>
+        <div class="trend-col">
+          <div class="trend-bar" style="height:55px;"></div>
+        </div>
+        <div class="trend-col">
+          <div class="trend-bar" style="height:35px;"></div>
+        </div>
+        <div class="trend-col">
+          <div class="trend-bar" style="height:60px;"></div>
+        </div>
+        <div class="trend-col">
+          <div class="trend-bar" style="height:48px;"></div>
+        </div>
+        <div class="trend-col">
+          <div class="trend-bar current" style="height:72px;"></div>
+        </div>
+      </div>
+      <div class="trend-amounts">
+        <div class="trend-amt">$498</div>
+        <div class="trend-amt">$640</div>
+        <div class="trend-amt">$412</div>
+        <div class="trend-amt">$705</div>
+        <div class="trend-amt">$718</div>
+        <div class="trend-amt current">$842</div>
+      </div>
+      <div class="trend-bars" style="height:auto; margin-top:4px;">
+        <div class="trend-col"><div class="trend-month">Sep</div></div>
+        <div class="trend-col"><div class="trend-month">Oct</div></div>
+        <div class="trend-col"><div class="trend-month">Nov</div></div>
+        <div class="trend-col"><div class="trend-month">Dec</div></div>
+        <div class="trend-col"><div class="trend-month">Jan</div></div>
+        <div class="trend-col"><div class="trend-month current">Feb</div></div>
+      </div>
+    </div>
+
+    <!-- AI Insight -->
+    <div class="insight-box">
+      <div class="insight-icon">💡</div>
+      <div>
+        <div class="insight-title">Sunday's Insight</div>
+        <div class="insight-text">Kopi's vet spending has increased <strong>68% over 3 months</strong>. This coincides with the skin condition logged in December. Consider asking your vet about a long-term management plan to reduce recurring visit costs.</div>
+      </div>
+    </div>
+
+    <!-- Top entries -->
+    <div class="entries-section">
+      <div class="section-title">Top Expenses</div>
+
+      <div class="entry-row">
+        <div class="entry-left">
+          <div class="entry-icon" style="background:#FEF0E4;">🏥</div>
+          <div>
+            <div class="entry-name">Mount Pleasant Animal Clinic</div>
+            <div class="entry-date">14 Feb · Vet & Medical</div>
+          </div>
+        </div>
+        <div class="entry-amount">S$380</div>
+      </div>
+
+      <div class="entry-row">
+        <div class="entry-left">
+          <div class="entry-icon" style="background:#FEF0E4;">💊</div>
+          <div>
+            <div class="entry-name">Apoquel Medication (3 months)</div>
+            <div class="entry-date">14 Feb · Vet & Medical</div>
+          </div>
+        </div>
+        <div class="entry-amount">S$192</div>
+      </div>
+
+      <div class="entry-row">
+        <div class="entry-left">
+          <div class="entry-icon" style="background:#EAF3EE;">🥩</div>
+          <div>
+            <div class="entry-name">Addiction Raw Dog Food</div>
+            <div class="entry-date">3 Feb · Food & Treats</div>
+          </div>
+        </div>
+        <div class="entry-amount">S$135</div>
+      </div>
+
+      <div class="entry-row">
+        <div class="entry-left">
+          <div class="entry-icon" style="background:#E4EEF6;">✂️</div>
+          <div>
+            <div class="entry-name">Pawlicious Grooming</div>
+            <div class="entry-date">22 Feb · Grooming</div>
+          </div>
+        </div>
+        <div class="entry-amount">S$88</div>
+      </div>
+    </div>
+
+    <!-- Budget tracker -->
+    <div class="budget-section">
+      <div class="section-title">Monthly Budget</div>
+      <div class="budget-card">
+        <div class="budget-row">
+          <div class="budget-label">Budget for Kopi</div>
+          <div class="budget-amounts">S$842.50 / S$700.00</div>
+        </div>
+        <div class="budget-track">
+          <div class="budget-fill warning" style="width:100%;"></div>
+        </div>
+        <div class="budget-note">⚠️ Over budget by S$142.50 this month. Vet visit was the main driver.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="report-footer">
+    <div class="footer-brand">Sunday · Pro</div>
+    <div class="footer-note">This report is for personal reference only.</div>
+    <div class="footer-page">Page 1 of 1</div>
+  </div>
+
+</div>
+
+<button class="print-btn" onclick="window.print()">⬇ Export PDF</button>
+
+</body>
+</html>

@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sunday — Monetisation Dev Handoff</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sage: #8FAF9C;
+    --sage-d: #4A7A62;
+    --sage-p: #EAF3EE;
+    --ink: #222222;
+    --stone: #888880;
+    --divider: #E6E3DC;
+    --bg: #F6F3EC;
+    --mist: #F0EDE6;
+    --white: #FFFFFF;
+    --red: #CC3333;
+    --red-p: #FFE5E5;
+    --orange: #C87840;
+    --orange-p: #FEF0E4;
+    --blue: #5A80A0;
+    --blue-p: #E4EEF6;
+    --green: #3A8A5A;
+    --green-p: #E4F4EA;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+    padding: 48px 24px 120px;
+    max-width: 900px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* Header */
+  .doc-header {
+    margin-bottom: 48px;
+    padding-bottom: 24px;
+    border-bottom: 2px solid var(--divider);
+  }
+
+  .doc-logo {
+    font-family: 'Sora', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .doc-logo span { color: var(--sage-d); }
+
+  .doc-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--stone);
+    margin-bottom: 16px;
+  }
+
+  .doc-meta {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .meta-item {
+    font-size: 12px;
+    color: var(--stone);
+  }
+
+  .meta-item strong { color: var(--ink); font-weight: 600; }
+
+  /* TOC */
+  .toc {
+    background: var(--white);
+    border: 1px solid var(--divider);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 48px;
+  }
+
+  .toc-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--stone);
+    margin-bottom: 12px;
+  }
+
+  .toc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 32px;
+  }
+
+  .toc-item {
+    font-size: 13px;
+    color: var(--sage-d);
+    text-decoration: none;
+    padding: 3px 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .toc-item:hover { text-decoration: underline; }
+
+  /* Section */
+  .section {
+    margin-bottom: 56px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--divider);
+  }
+
+  .section-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--sage-d);
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  /* Subsection */
+  .subsection {
+    margin-bottom: 32px;
+  }
+
+  .subsection-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .subsection-title::before {
+    content: '';
+    width: 4px;
+    height: 16px;
+    background: var(--sage);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  /* Table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 16px;
+    font-size: 13px;
+  }
+
+  th {
+    background: var(--ink);
+    color: var(--white);
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 12px;
+  }
+
+  th:first-child { border-radius: 8px 0 0 0; }
+  th:last-child { border-radius: 0 8px 0 0; }
+
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--divider);
+    vertical-align: top;
+  }
+
+  tr:nth-child(even) td { background: var(--mist); }
+  tr:last-child td { border-bottom: none; }
+
+  .check { color: var(--green); font-weight: 700; }
+  .cross { color: var(--stone); opacity: 0.4; }
+  .partial { color: var(--orange); font-weight: 600; }
+
+  /* Code block */
+  .code-block {
+    background: var(--ink);
+    color: #E8F5E9;
+    border-radius: 10px;
+    padding: 16px 20px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    line-height: 1.8;
+    margin-bottom: 16px;
+    overflow-x: auto;
+  }
+
+  .code-comment { color: #6A9F7A; }
+  .code-key { color: #80CBC4; }
+  .code-val { color: #F48FB1; }
+  .code-str { color: #FFCC80; }
+
+  /* Info box */
+  .info-box {
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    line-height: 1.6;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .info-box.sage { background: var(--sage-p); border: 1px solid var(--sage); }
+  .info-box.orange { background: var(--orange-p); border: 1px solid #E8C090; }
+  .info-box.red { background: var(--red-p); border: 1px solid #FFAAAA; }
+  .info-box.blue { background: var(--blue-p); border: 1px solid #AACCEE; }
+
+  .info-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .info-title { font-weight: 700; margin-bottom: 3px; color: var(--ink); }
+  .info-text { color: var(--stone); }
+  .info-text strong { color: var(--ink); }
+
+  /* Gate card */
+  .gate-card {
+    background: var(--white);
+    border: 1px solid var(--divider);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+  }
+
+  .gate-feature {
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--ink);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .gate-tier {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 100px;
+    letter-spacing: 0.5px;
+  }
+
+  .tier-free { background: var(--mist); color: var(--stone); }
+  .tier-plus { background: var(--sage-p); color: var(--sage-d); }
+  .tier-pro { background: var(--ink); color: var(--white); }
+
+  .gate-trigger {
+    font-size: 12px;
+    color: var(--stone);
+    margin-bottom: 4px;
+  }
+
+  .gate-modal {
+    font-size: 12px;
+    color: var(--blue);
+    font-style: italic;
+  }
+
+  /* Pricing card */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .pricing-card {
+    background: var(--white);
+    border: 1px solid var(--divider);
+    border-radius: 14px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .pricing-card.featured {
+    background: var(--ink);
+    border-color: var(--ink);
+  }
+
+  .pricing-name {
+    font-family: 'Sora', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--ink);
+  }
+
+  .pricing-card.featured .pricing-name { color: var(--white); }
+
+  .pricing-amount {
+    font-family: 'Sora', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -1px;
+  }
+
+  .pricing-card.featured .pricing-amount { color: var(--white); }
+
+  .pricing-period {
+    font-size: 11px;
+    color: var(--stone);
+    margin-bottom: 12px;
+  }
+
+  .pricing-card.featured .pricing-period { color: rgba(255,255,255,0.5); }
+
+  .pricing-annual {
+    font-size: 12px;
+    color: var(--sage-d);
+    font-weight: 600;
+    background: var(--sage-p);
+    padding: 5px 10px;
+    border-radius: 100px;
+    margin-bottom: 4px;
+    display: inline-block;
+  }
+
+  .pricing-saving {
+    font-size: 11px;
+    color: var(--stone);
+  }
+
+  .pricing-card.featured .pricing-saving { color: rgba(255,255,255,0.4); }
+
+  /* IAP product IDs */
+  .iap-table td:first-child { font-family: 'Courier New', monospace; font-size: 11px; color: var(--sage-d); }
+
+  /* Step list */
+  .step-list { list-style: none; counter-reset: steps; }
+
+  .step-item {
+    counter-increment: steps;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin-bottom: 14px;
+    font-size: 13px;
+    color: var(--stone);
+    line-height: 1.6;
+  }
+
+  .step-item::before {
+    content: counter(steps);
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--sage-p);
+    color: var(--sage-d);
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .step-item strong { color: var(--ink); }
+
+  /* Tag */
+  .tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 100px;
+    letter-spacing: 0.5px;
+    margin-left: 6px;
+  }
+
+  .tag-critical { background: var(--red-p); color: var(--red); }
+  .tag-important { background: var(--orange-p); color: var(--orange); }
+  .tag-note { background: var(--blue-p); color: var(--blue); }
+
+  p { font-size: 13px; color: var(--stone); margin-bottom: 12px; line-height: 1.7; }
+  p strong { color: var(--ink); }
+
+  ul { margin: 0 0 16px 20px; }
+  ul li { font-size: 13px; color: var(--stone); margin-bottom: 6px; line-height: 1.6; }
+  ul li strong { color: var(--ink); }
+
+  hr { border: none; border-top: 1px solid var(--divider); margin: 32px 0; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="doc-header">
+  <div class="doc-logo">Sun<span>day</span></div>
+  <div class="doc-title">Monetisation & Paywall — Dev Handoff</div>
+  <div class="doc-meta">
+    <span class="meta-item"><strong>Version:</strong> 1.0</span>
+    <span class="meta-item"><strong>Date:</strong> 21 March 2026</span>
+    <span class="meta-item"><strong>Status:</strong> Locked — ready for implementation</span>
+    <span class="meta-item"><strong>Platform:</strong> iOS only (App Store)</span>
+  </div>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <div class="toc-title">Contents</div>
+  <div class="toc-grid">
+    <a class="toc-item" href="#pricing">① Pricing & IAP Product IDs</a>
+    <a class="toc-item" href="#db">② Database — Tier Checks</a>
+    <a class="toc-item" href="#feature-matrix">③ Full Feature Matrix</a>
+    <a class="toc-item" href="#gates">④ Paywall Gates — Every Trigger</a>
+    <a class="toc-item" href="#health">⑤ Health Vault Gates</a>
+    <a class="toc-item" href="#spending">⑥ Spending Gates</a>
+    <a class="toc-item" href="#asksunday">⑦ Ask Sunday Gates</a>
+    <a class="toc-item" href="#pinit">⑧ Pin It & Collections</a>
+    <a class="toc-item" href="#modal">⑨ Paywall Modal — Copy & Design</a>
+    <a class="toc-item" href="#lapse">⑩ Subscription Lapse Handling</a>
+  </div>
+</div>
+
+<!-- SECTION 1 — PRICING -->
+<div class="section" id="pricing">
+  <div class="section-header">
+    <div class="section-num">1</div>
+    <div class="section-title">Pricing & IAP Product IDs</div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Tier Pricing</div>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="pricing-name">Free</div>
+        <div class="pricing-amount">S$0</div>
+        <div class="pricing-period">forever</div>
+        <div style="height:32px;"></div>
+        <div class="pricing-saving">No payment required</div>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-name">Plus</div>
+        <div class="pricing-amount">S$8.99</div>
+        <div class="pricing-period">per month</div>
+        <div class="pricing-annual">S$89.90 / year</div>
+        <div class="pricing-saving">2 months free · S$7.49/mo effective</div>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-name">Pro</div>
+        <div class="pricing-amount">S$15.99</div>
+        <div class="pricing-period">per month</div>
+        <div class="pricing-annual">S$159.90 / year</div>
+        <div class="pricing-saving">2 months free · S$13.33/mo effective</div>
+      </div>
+    </div>
+
+    <div class="info-box orange">
+      <div class="info-icon">⚠️</div>
+      <div>
+        <div class="info-title">Annual = 10 months price</div>
+        <div class="info-text">Annual pricing is exactly <strong>10 × monthly price</strong>. Present as "2 months free" in all UI copy — never show the maths. Apple takes 30% cut (drops to 15% after subscriber's first year).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Apple IAP Product IDs</div>
+    <table class="iap-table">
+      <tr><th>Product ID</th><th>Tier</th><th>Billing</th><th>Price</th></tr>
+      <tr><td>com.sunday.plus.monthly</td><td>Plus</td><td>Monthly</td><td>S$8.99</td></tr>
+      <tr><td>com.sunday.plus.annual</td><td>Plus</td><td>Annual</td><td>S$89.90</td></tr>
+      <tr><td>com.sunday.pro.monthly</td><td>Pro</td><td>Monthly</td><td>S$15.99</td></tr>
+      <tr><td>com.sunday.pro.annual</td><td>Pro</td><td>Annual</td><td>S$159.90</td></tr>
+    </table>
+
+    <div class="info-box sage">
+      <div class="info-icon">💡</div>
+      <div>
+        <div class="info-title">StoreKit 2 — use RevenueCat</div>
+        <div class="info-text">Implement subscriptions via <strong>RevenueCat SDK</strong> — handles receipt validation, entitlement checks, lapse detection, and restore purchases automatically. Do not implement raw StoreKit without it.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2 — DATABASE -->
+<div class="section" id="db">
+  <div class="section-header">
+    <div class="section-num">2</div>
+    <div class="section-title">Database — Tier Checks</div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">profiles table — tier fields</div>
+    <div class="code-block">
+<span class="code-comment">-- profiles table (existing)</span>
+<span class="code-key">is_plus</span>        <span class="code-val">boolean</span>   <span class="code-comment">-- true if active Plus subscriber</span>
+<span class="code-key">is_pro</span>         <span class="code-val">boolean</span>   <span class="code-comment">-- true if active Pro subscriber</span>
+<span class="code-key">plus_expires_at</span> <span class="code-val">timestamptz</span> <span class="code-comment">-- null if monthly (RevenueCat manages)</span>
+<span class="code-key">pro_expires_at</span>  <span class="code-val">timestamptz</span> <span class="code-comment">-- null if monthly (RevenueCat manages)</span>
+    </div>
+
+    <div class="info-box sage">
+      <div class="info-icon">💡</div>
+      <div>
+        <div class="info-title">Always check both flags</div>
+        <div class="info-text">Pro users should always pass Plus checks too. Logic: <strong>canAccessPlus = is_plus OR is_pro</strong>. Never gate a Plus feature from a Pro user.</div>
+      </div>
+    </div>
+
+    <div class="subsection-title" style="margin-top:24px;">Tier check helper (Dart)</div>
+    <div class="code-block">
+<span class="code-comment">// In user_profile model</span>
+<span class="code-key">bool</span> get isFree  => !is_plus && !is_pro;
+<span class="code-key">bool</span> get isPlus  => is_plus || is_pro; <span class="code-comment">// Pro includes Plus</span>
+<span class="code-key">bool</span> get isPro   => is_pro;
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3 — FEATURE MATRIX -->
+<div class="section" id="feature-matrix">
+  <div class="section-header">
+    <div class="section-num">3</div>
+    <div class="section-title">Full Feature Matrix</div>
+  </div>
+
+  <table>
+    <tr>
+      <th>Feature</th>
+      <th>Free</th>
+      <th>Plus</th>
+      <th>Pro</th>
+    </tr>
+    <!-- EXPLORE & MAP -->
+    <tr><td colspan="4" style="background:var(--mist); font-weight:700; font-size:11px; letter-spacing:1px; text-transform:uppercase; color:var(--stone);">Explore & Map</td></tr>
+    <tr><td>Browse places</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+    <tr><td>Map view</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+    <tr><td>Community votes</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+    <tr><td>Collections</td><td class="partial">5 max</td><td class="check">Unlimited</td><td class="check">Unlimited</td></tr>
+    <!-- PIN IT -->
+    <tr><td colspan="4" style="background:var(--mist); font-weight:700; font-size:11px; letter-spacing:1px; text-transform:uppercase; color:var(--stone);">Pin It</td></tr>
+    <tr><td>Pin a place</td><td class="check">✓ Unlimited</td><td class="check">✓</td><td class="check">✓</td></tr>
+    <tr><td>AI extraction (from social post)</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+    <!-- HEALTH VAULT -->
+    <tr><td colspan="4" style="background:var(--mist); font-weight:700; font-size:11px; letter-spacing:1px; text-transform:uppercase; color:var(--stone);">Health Vault</td></tr>
+    <tr><td>Number of dogs</td><td class="partial">1 dog</td><td class="check">Unlimited</td><td class="check">Unlimited</td></tr>
+    <tr><td>Health entries</td><td class="partial">Last 5 total</td><td class="check">Full history</td><td class="check">Full history</td></tr>
+    <tr><td>Vaccinations</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+    <tr><td>Medications</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+    <tr><td>Symptom log</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+    <tr><td>Health documents (file upload)</td><td class="cross">✕</td><td class="check">✓</td><td class="check">✓</td></tr>
+    <tr><td>Vet report export (PDF)</td><td class="cross">✕</td><td class="check">✓</td><td class="check">✓</td></tr>
+    <!-- SPENDING -->
+    <tr><td colspan="4" style="background:var(--mist); font-weight:700; font-size:11px; letter-spacing:1px; text-transform:uppercase; color:var(--stone);">Spending</td></tr>
+    <tr><td>Total this month</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+    <tr><td>Category breakdown (donut)</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+    <tr><td>Spending entries visible</td><td class="partial">Last 5</td><td class="check">Full history</td><td class="check">Full history</td></tr>
+    <tr><td>vs last month comparison</td><td class="cross">✕</td><td class="check">✓</td><td class="check">✓</td></tr>
+    <tr><td>Manual entry (FAB)</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+    <tr><td>Receipt scanner (AI)</td><td class="cross">✕</td><td class="cross">✕</td><td class="check">✓ Pro only</td></tr>
+    <tr><td>6-month trend chart</td><td class="cross">✕</td><td class="cross">✕</td><td class="check">✓</td></tr>
+    <tr><td>AI spending insights</td><td class="cross">✕</td><td class="cross">✕</td><td class="check">✓</td></tr>
+    <tr><td>Budget tracker + alerts</td><td class="cross">✕</td><td class="cross">✕</td><td class="check">✓</td></tr>
+    <tr><td>Spending export (PDF)</td><td class="cross">✕</td><td class="cross">✕</td><td class="check">✓</td></tr>
+    <!-- ASK SUNDAY -->
+    <tr><td colspan="4" style="background:var(--mist); font-weight:700; font-size:11px; letter-spacing:1px; text-transform:uppercase; color:var(--stone);">Ask Sunday</td></tr>
+    <tr><td>Conversation threads / month</td><td class="partial">1 thread</td><td class="partial">3 threads</td><td class="check">Unlimited</td></tr>
+    <!-- CURATE -->
+    <tr><td colspan="4" style="background:var(--mist); font-weight:700; font-size:11px; letter-spacing:1px; text-transform:uppercase; color:var(--stone);">Curate</td></tr>
+    <tr><td>Browse curated products</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+  </table>
+</div>
+
+<!-- SECTION 4 — GATES -->
+<div class="section" id="gates">
+  <div class="section-header">
+    <div class="section-num">4</div>
+    <div class="section-title">Paywall Gates — Every Trigger</div>
+  </div>
+
+  <p>Every gate below must show the <strong>Paywall Modal</strong> (see Section 9) when triggered. Never hard-crash or show an error — always present the upgrade screen gracefully.</p>
+
+  <!-- Collections -->
+  <div class="gate-card" id="health">
+    <div class="gate-feature">📁 Collections limit <span class="gate-tier tier-plus">Plus</span></div>
+    <div class="gate-trigger"><strong>Trigger:</strong> Free user attempts to create a 6th collection</div>
+    <div class="gate-modal">Modal: "You've used all 5 of your free collections. Upgrade to Plus for unlimited."</div>
+  </div>
+
+  <!-- Second dog -->
+  <div class="gate-card">
+    <div class="gate-feature">🐾 Second dog <span class="gate-tier tier-plus">Plus</span></div>
+    <div class="gate-trigger"><strong>Trigger:</strong> Free user taps "Add another dog" in My Pets</div>
+    <div class="gate-modal">Modal: "Sunday Plus lets you track unlimited dogs. Upgrade to add another."</div>
+  </div>
+
+  <!-- Health entries -->
+  <div class="gate-card" id="health">
+    <div class="gate-feature">📋 Health entry history <span class="gate-tier tier-plus">Plus</span></div>
+    <div class="gate-trigger"><strong>Trigger:</strong> Free user taps "See all" on health entries OR taps an entry older than their 5 most recent</div>
+    <div class="gate-modal">Modal: "Your last 5 entries are shown free. Upgrade to Plus to see your full health history."</div>
+  </div>
+
+  <!-- Health documents -->
+  <div class="gate-card">
+    <div class="gate-feature">📎 Health document upload <span class="gate-tier tier-plus">Plus</span></div>
+    <div class="gate-trigger"><strong>Trigger:</strong> Free user taps "Attach document" on a health entry</div>
+    <div class="gate-modal">Modal: "Attach vet reports, lab results, and photos to health entries. Available on Plus."</div>
+  </div>
+
+  <!-- Vet report -->
+  <div class="gate-card">
+    <div class="gate-feature">📄 Vet report export <span class="gate-tier tier-plus">Plus</span></div>
+    <div class="gate-trigger"><strong>Trigger:</strong> Free user taps "Export Vet Report" in Health Vault</div>
+    <div class="gate-modal">Modal: "Generate a full medical summary PDF to share with your vet. Available on Plus."</div>
+  </div>
+
+  <!-- Spending history -->
+  <div class="gate-card" id="spending">
+    <div class="gate-feature">💰 Spending full history <span class="gate-tier tier-plus">Plus</span></div>
+    <div class="gate-trigger"><strong>Trigger:</strong> Free user taps "See all" on spending entries OR sees the upgrade nudge after 5 entries</div>
+    <div class="gate-modal">Modal: "You've used your 5 free spending entries this month. See your full history on Plus."</div>
+  </div>
+
+  <!-- Receipt scanner -->
+  <div class="gate-card">
+    <div class="gate-feature">📷 Receipt scanner <span class="gate-tier tier-pro">Pro</span></div>
+    <div class="gate-trigger"><strong>Trigger:</strong> Free or Plus user taps the receipt scanner button</div>
+    <div class="gate-modal">Modal: "Scan any receipt — Sunday reads it and categorises your spending automatically. Pro feature."</div>
+  </div>
+
+  <!-- Spending insights -->
+  <div class="gate-card">
+    <div class="gate-feature">📊 Spending insights + trend <span class="gate-tier tier-pro">Pro</span></div>
+    <div class="gate-trigger"><strong>Trigger:</strong> Free or Plus user taps the Insights tab in Spending</div>
+    <div class="gate-modal">Modal: "See spending trends, AI insights, and budget tracking across months. Pro feature."</div>
+  </div>
+
+  <!-- Spending export -->
+  <div class="gate-card">
+    <div class="gate-feature">📤 Spending export PDF <span class="gate-tier tier-pro">Pro</span></div>
+    <div class="gate-trigger"><strong>Trigger:</strong> Free or Plus user taps "Export Report" in Spending</div>
+    <div class="gate-modal">Modal: "Export a full monthly spending report as PDF. Pro feature."</div>
+  </div>
+
+  <!-- Ask Sunday -->
+  <div class="gate-card" id="asksunday">
+    <div class="gate-feature">💬 Ask Sunday — thread limit <span class="gate-tier tier-plus">Plus / Pro</span></div>
+    <div class="gate-trigger"><strong>Trigger:</strong> User starts a new conversation thread after hitting their monthly limit</div>
+    <div class="gate-modal">
+      Free (used 1): "You've used your free Ask Sunday session this month. Upgrade to Plus for 3 sessions, or Pro for unlimited."<br>
+      Plus (used 3): "You've used all 3 Ask Sunday sessions this month. Upgrade to Pro for unlimited."
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 5 — HEALTH VAULT GATES DETAIL -->
+<div class="section" id="health">
+  <div class="section-header">
+    <div class="section-num">5</div>
+    <div class="section-title">Health Vault — Implementation Detail</div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Health entries — 5 entry limit logic</div>
+    <div class="code-block">
+<span class="code-comment">// Query for free users — show only 5 most recent across ALL types</span>
+SELECT * FROM health_entries
+WHERE dog_id = :dogId
+ORDER BY date DESC
+LIMIT <span class="code-val">5</span>; <span class="code-comment">-- free users only</span>
+
+<span class="code-comment">// Query for Plus/Pro — full history</span>
+SELECT * FROM health_entries
+WHERE dog_id = :dogId
+ORDER BY date DESC; <span class="code-comment">-- no limit</span>
+    </div>
+
+    <div class="info-box orange">
+      <div class="info-icon">⚠️</div>
+      <div>
+        <div class="info-title">Never delete free user data</div>
+        <div class="info-text">All entries are saved to the DB regardless of tier. Free users see last 5 but all entries exist. When they upgrade to Plus, full history appears immediately — no data migration needed.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Vaccinations & Medications — always free</div>
+    <p>Vaccinations and medications are <strong>never gated</strong>. These are safety-critical. All users see all records regardless of tier. No limit applied.</p>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Health documents — Plus/Pro only</div>
+    <div class="code-block">
+<span class="code-comment">// Before allowing file upload, check tier</span>
+<span class="code-key">if</span> (!profile.isPlus) {
+  showPaywallModal(feature: <span class="code-str">'health_documents'</span>);
+  <span class="code-key">return</span>;
+}
+<span class="code-comment">// Proceed with Supabase Storage upload</span>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Vet report export — Plus/Pro only</div>
+    <ul>
+      <li>Button always visible to all users — greyed out with lock icon for Free</li>
+      <li>Tapping triggers paywall modal for Free users</li>
+      <li>PDF generated client-side from Health Vault data — no server call needed</li>
+      <li>Export via iOS share sheet (AirDrop, email, WhatsApp, save to Files)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SECTION 6 — SPENDING GATES DETAIL -->
+<div class="section" id="spending">
+  <div class="section-header">
+    <div class="section-num">6</div>
+    <div class="section-title">Spending — Implementation Detail</div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Free user — 5 entry display logic</div>
+    <div class="code-block">
+<span class="code-comment">// Show last 5 entries for free users — ALL entries still saved</span>
+SELECT * FROM spending_entries
+WHERE user_id = :userId AND dog_id = :dogId
+ORDER BY date DESC
+LIMIT <span class="code-val">5</span>; <span class="code-comment">-- free users only</span>
+
+<span class="code-comment">// Show upgrade nudge after the 5th entry</span>
+<span class="code-key">if</span> (totalEntries > <span class="code-val">5</span> && profile.isFree) {
+  showUpgradeNudge(<span class="code-str">'${totalEntries - 5} older entries hidden'</span>);
+}
+    </div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">What each tier sees in Spending</div>
+    <table>
+      <tr><th>Component</th><th>Free</th><th>Plus</th><th>Pro</th></tr>
+      <tr><td>Total this month</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+      <tr><td>Category donut chart</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+      <tr><td>Entry list</td><td class="partial">Last 5</td><td class="check">All</td><td class="check">All</td></tr>
+      <tr><td>vs last month delta</td><td class="cross">✕</td><td class="check">✓</td><td class="check">✓</td></tr>
+      <tr><td>Receipt scanner FAB</td><td class="cross">✕</td><td class="cross">✕</td><td class="check">✓</td></tr>
+      <tr><td>6-month trend bar chart</td><td class="cross">✕</td><td class="cross">✕</td><td class="check">✓</td></tr>
+      <tr><td>AI insight card</td><td class="cross">✕</td><td class="cross">✕</td><td class="check">✓</td></tr>
+      <tr><td>Budget tracker</td><td class="cross">✕</td><td class="cross">✕</td><td class="check">✓</td></tr>
+      <tr><td>Export PDF button</td><td class="cross">✕</td><td class="cross">✕</td><td class="check">✓</td></tr>
+    </table>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">AI spending insight — generation logic</div>
+    <p>The AI insight card (Pro only) is generated by Gemini. <strong>Cache the result</strong> — regenerate only when new spending entries are added. Store in a <code>spending_insight</code> column on the dog record or a separate cache table. Do not call Gemini on every screen load.</p>
+  </div>
+</div>
+
+<!-- SECTION 7 — ASK SUNDAY -->
+<div class="section" id="asksunday">
+  <div class="section-header">
+    <div class="section-num">7</div>
+    <div class="section-title">Ask Sunday — Session Gate</div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">What counts as one session</div>
+    <p><strong>One session = one conversation thread.</strong> Starting a new chat = consuming one session. Continuing an existing thread = free, no additional session consumed.</p>
+
+    <div class="info-box red">
+      <div class="info-icon">🚨</div>
+      <div>
+        <div class="info-title">Sessions reset on the 1st of each month</div>
+        <div class="info-text">Use the <strong>month_year</strong> field in ask_sunday_sessions table (format: YYYY-MM). Count rows where user_id matches and month_year = current month. Reset is automatic — new month, new count.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Session limit by tier</div>
+    <table>
+      <tr><th>Tier</th><th>Threads / month</th><th>Behaviour at limit</th></tr>
+      <tr><td>Free</td><td>1</td><td>Show paywall modal on new thread attempt</td></tr>
+      <tr><td>Plus</td><td>3</td><td>Show paywall modal — upgrade to Pro for unlimited</td></tr>
+      <tr><td>Pro</td><td>Unlimited</td><td>No gate</td></tr>
+    </table>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Session check logic (Dart)</div>
+    <div class="code-block">
+<span class="code-comment">// Before starting a new Ask Sunday thread</span>
+<span class="code-key">final</span> monthYear = DateFormat(<span class="code-str">'yyyy-MM'</span>).format(DateTime.now());
+<span class="code-key">final</span> count = await supabase
+  .from(<span class="code-str">'ask_sunday_sessions'</span>)
+  .select()
+  .eq(<span class="code-str">'user_id'</span>, userId)
+  .eq(<span class="code-str">'month_year'</span>, monthYear)
+  .count();
+
+<span class="code-key">final</span> limit = profile.isPro ? <span class="code-val">999</span> : profile.isPlus ? <span class="code-val">3</span> : <span class="code-val">1</span>;
+
+<span class="code-key">if</span> (count >= limit) {
+  showPaywallModal(feature: <span class="code-str">'ask_sunday'</span>);
+  <span class="code-key">return</span>;
+}
+
+<span class="code-comment">// Create new session row, then open chat</span>
+await supabase.from(<span class="code-str">'ask_sunday_sessions'</span>).insert({
+  <span class="code-str">'user_id'</span>: userId,
+  <span class="code-str">'dog_id'</span>: dogId,
+  <span class="code-str">'month_year'</span>: monthYear,
+});
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 8 — PIN IT & COLLECTIONS -->
+<div class="section" id="pinit">
+  <div class="section-header">
+    <div class="section-num">8</div>
+    <div class="section-title">Pin It & Collections</div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Pin It — Free for all, no cap</div>
+    <p>Pin It (including AI extraction via Gemini) is <strong>completely free with no monthly cap</strong>. No tier check required. This is intentional — Pin It drives platform content and new place discovery. Do not add any gating here.</p>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Collections — 5 max on Free</div>
+    <div class="code-block">
+<span class="code-comment">// Before creating a new collection</span>
+<span class="code-key">if</span> (profile.isFree) {
+  <span class="code-key">final</span> count = await supabase
+    .from(<span class="code-str">'collections'</span>)
+    .select()
+    .eq(<span class="code-str">'user_id'</span>, userId)
+    .count();
+
+  <span class="code-key">if</span> (count >= <span class="code-val">5</span>) {
+    showPaywallModal(feature: <span class="code-str">'collections'</span>);
+    <span class="code-key">return</span>;
+  }
+}
+<span class="code-comment">// Proceed with collection creation</span>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 9 — PAYWALL MODAL -->
+<div class="section" id="modal">
+  <div class="section-header">
+    <div class="section-num">9</div>
+    <div class="section-title">Paywall Modal — Copy & Design</div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Modal structure</div>
+    <ul>
+      <li><strong>Top:</strong> Mascot image (mascot_happy.png) — friendly, not punishing</li>
+      <li><strong>Headline:</strong> Feature-specific (see copy below)</li>
+      <li><strong>Subtext:</strong> What they unlock and at what tier</li>
+      <li><strong>Primary CTA:</strong> "Upgrade to Plus — S$8.99/mo" or "Upgrade to Pro — S$15.99/mo"</li>
+      <li><strong>Secondary CTA:</strong> "See all plans" → full pricing screen</li>
+      <li><strong>Dismiss:</strong> Small "Not now" text link at bottom — always allow dismissal</li>
+    </ul>
+
+    <div class="info-box red">
+      <div class="info-icon">🚨</div>
+      <div>
+        <div class="info-title">Never block the user</div>
+        <div class="info-text">The paywall modal must always be dismissable. Apple App Store guidelines require that free features remain accessible. Never hard-block navigation behind a paywall.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Modal copy by feature</div>
+    <table>
+      <tr><th>Feature</th><th>Headline</th><th>Subtext</th><th>CTA tier</th></tr>
+      <tr><td>Collections limit</td><td>"More places to love"</td><td>You've filled your 5 free collections. Upgrade for unlimited.</td><td>Plus</td></tr>
+      <tr><td>Second dog</td><td>"Room for everyone"</td><td>Track all your dogs in one place.</td><td>Plus</td></tr>
+      <tr><td>Health history</td><td>"Your full health story"</td><td>See every vet visit, every entry, all in one place.</td><td>Plus</td></tr>
+      <tr><td>Health documents</td><td>"Keep every record"</td><td>Attach vet reports, lab results, and prescriptions.</td><td>Plus</td></tr>
+      <tr><td>Vet report</td><td>"Impress your vet"</td><td>One tap. Full medical summary. Ready to share.</td><td>Plus</td></tr>
+      <tr><td>Spending history</td><td>"Know where it goes"</td><td>See your full spending history and patterns.</td><td>Plus</td></tr>
+      <tr><td>Receipt scanner</td><td>"Scan, done"</td><td>Point your camera at any receipt. Sunday does the rest.</td><td>Pro</td></tr>
+      <tr><td>Spending insights</td><td>"Understand Kopi's costs"</td><td>AI spots patterns in your spending so you're never surprised.</td><td>Pro</td></tr>
+      <tr><td>Ask Sunday (Plus)</td><td>"Keep the conversation going"</td><td>You've used your free session. Get 3 sessions/month on Plus.</td><td>Plus</td></tr>
+      <tr><td>Ask Sunday (Pro)</td><td>"Ask as much as you need"</td><td>Unlimited Ask Sunday sessions every month.</td><td>Pro</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- SECTION 10 — LAPSE HANDLING -->
+<div class="section" id="lapse">
+  <div class="section-header">
+    <div class="section-num">10</div>
+    <div class="section-title">Subscription Lapse Handling</div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">What happens when a subscription lapses</div>
+    <ul>
+      <li>RevenueCat webhook updates <strong>is_plus / is_pro</strong> to false in profiles table</li>
+      <li>User is immediately downgraded to Free tier on next app open</li>
+      <li><strong>All data is preserved</strong> — health entries, spending, documents all remain in DB</li>
+      <li>User sees only last 5 health entries and last 5 spending entries again</li>
+      <li>If they re-subscribe, full history returns instantly</li>
+    </ul>
+
+    <div class="info-box sage">
+      <div class="info-icon">💡</div>
+      <div>
+        <div class="info-title">Grace period</div>
+        <div class="info-text">RevenueCat handles a <strong>16-day grace period</strong> for billing failures before marking as lapsed. Do not implement custom grace period logic — trust RevenueCat's entitlement status.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Lapse notification (in-app)</div>
+    <p>On first app open after lapse, show a single <strong>non-blocking banner</strong> (not a modal):</p>
+    <p><em>"Your Sunday Plus subscription has ended. Your data is safe — resubscribe anytime to access it."</em></p>
+    <p>Banner dismissable. Links to pricing screen. Do not show again for 7 days.</p>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Restore purchases</div>
+    <p>Add a <strong>"Restore Purchases"</strong> button in Profile → Support the App. Required by Apple App Store guidelines. Calls RevenueCat's <code>restorePurchases()</code> method.</p>
+  </div>
+</div>
+
+</body>
+</html>

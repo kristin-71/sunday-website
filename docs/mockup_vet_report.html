@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sunday — Kopi's Vet Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sage: #8FAF9C;
+    --sage-d: #4A7A62;
+    --sage-p: #EAF3EE;
+    --ink: #222222;
+    --stone: #888880;
+    --divider: #E6E3DC;
+    --bg: #F6F3EC;
+    --mist: #F0EDE6;
+    --white: #FFFFFF;
+    --red: #CC3333;
+    --red-p: #FFE5E5;
+    --orange: #C87840;
+    --orange-p: #FEF0E4;
+    --blue: #5A80A0;
+    --blue-p: #E4EEF6;
+    --green: #3A8A5A;
+    --green-p: #E4F4EA;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #E8E4DC;
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 40px 24px;
+  }
+
+  .page {
+    background: var(--white);
+    width: 595px;
+    border-radius: 4px;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.15);
+    overflow: hidden;
+  }
+
+  /* Header */
+  .report-header {
+    background: var(--sage-d);
+    padding: 28px 40px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .report-header::after {
+    content: '';
+    position: absolute;
+    right: -30px;
+    top: -30px;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+  }
+
+  .brand-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+
+  .brand-name {
+    font-family: 'Sora', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.9);
+  }
+
+  .brand-sep {
+    color: rgba(255,255,255,0.3);
+    font-size: 13px;
+  }
+
+  .report-type {
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    font-weight: 500;
+  }
+
+  .report-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 4px;
+  }
+
+  .report-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 3px;
+  }
+
+  .report-sub {
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+  }
+
+  /* Dog profile card */
+  .dog-profile {
+    background: var(--white);
+    border-bottom: 2px solid var(--divider);
+    padding: 20px 40px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .dog-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--sage-p);
+    border: 2px solid var(--sage);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    flex-shrink: 0;
+  }
+
+  .dog-details {
+    flex: 1;
+  }
+
+  .dog-name {
+    font-family: 'Sora', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .dog-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .dog-tag {
+    font-size: 11px;
+    color: var(--stone);
+    background: var(--mist);
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-weight: 500;
+  }
+
+  .alert-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--red-p);
+    border: 1px solid #FFCCCC;
+    border-radius: 100px;
+    padding: 5px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--red);
+    white-space: nowrap;
+  }
+
+  /* Body */
+  .report-body {
+    padding: 28px 40px;
+  }
+
+  /* Section */
+  .section {
+    margin-bottom: 24px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1.5px solid var(--divider);
+  }
+
+  .section-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+  }
+
+  .section-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--stone);
+  }
+
+  /* Alert box */
+  .alert-box {
+    background: var(--red-p);
+    border: 1px solid #FFCCCC;
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 24px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .alert-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+  .alert-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--red);
+    margin-bottom: 3px;
+  }
+
+  .alert-text {
+    font-size: 11px;
+    color: var(--red);
+    opacity: 0.8;
+    line-height: 1.5;
+  }
+
+  /* Medication rows */
+  .med-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--divider);
+    gap: 12px;
+  }
+
+  .med-row:last-child { border-bottom: none; }
+
+  .med-left { display: flex; gap: 10px; align-items: flex-start; }
+
+  .med-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--sage);
+    margin-top: 4px;
+    flex-shrink: 0;
+  }
+
+  .med-dot.inactive { background: var(--divider); }
+
+  .med-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+
+  .med-detail {
+    font-size: 11px;
+    color: var(--stone);
+    line-height: 1.5;
+  }
+
+  .med-status {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 100px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .status-active {
+    background: var(--green-p);
+    color: var(--green);
+  }
+
+  .status-completed {
+    background: var(--mist);
+    color: var(--stone);
+  }
+
+  /* Vaccination rows */
+  .vax-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--divider);
+    gap: 12px;
+  }
+
+  .vax-row:last-child { border-bottom: none; }
+
+  .vax-left { display: flex; align-items: center; gap: 10px; }
+
+  .vax-check {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    flex-shrink: 0;
+  }
+
+  .vax-check.done { background: var(--green-p); color: var(--green); }
+  .vax-check.due { background: var(--orange-p); color: var(--orange); }
+  .vax-check.overdue { background: var(--red-p); color: var(--red); }
+
+  .vax-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .vax-dates {
+    text-align: right;
+  }
+
+  .vax-given {
+    font-size: 11px;
+    color: var(--stone);
+  }
+
+  .vax-due {
+    font-size: 10px;
+    font-weight: 600;
+    margin-top: 1px;
+  }
+
+  .due-ok { color: var(--green); }
+  .due-soon { color: var(--orange); }
+  .due-overdue { color: var(--red); }
+
+  /* Health timeline */
+  .timeline {
+    position: relative;
+    padding-left: 20px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 6px;
+    bottom: 6px;
+    width: 1.5px;
+    background: var(--divider);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 14px;
+    padding-left: 16px;
+  }
+
+  .timeline-item:last-child { margin-bottom: 0; }
+
+  .timeline-dot {
+    position: absolute;
+    left: -15px;
+    top: 5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 2px solid var(--sage);
+  }
+
+  .timeline-dot.red { border-color: var(--red); }
+  .timeline-dot.orange { border-color: var(--orange); }
+  .timeline-dot.blue { border-color: var(--blue); }
+
+  .timeline-date {
+    font-size: 10px;
+    color: var(--stone);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+  }
+
+  .timeline-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+
+  .timeline-notes {
+    font-size: 11px;
+    color: var(--stone);
+    line-height: 1.5;
+  }
+
+  .timeline-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 100px;
+    margin-top: 4px;
+  }
+
+  /* Conditions */
+  .condition-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: var(--mist);
+    border-radius: 8px;
+    margin-bottom: 6px;
+  }
+
+  .condition-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .condition-since {
+    font-size: 11px;
+    color: var(--stone);
+  }
+
+  .condition-badge {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 100px;
+  }
+
+  /* Footer */
+  .report-footer {
+    border-top: 2px solid var(--divider);
+    padding: 16px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--mist);
+  }
+
+  .footer-left {
+    font-size: 10px;
+    color: var(--stone);
+    line-height: 1.6;
+  }
+
+  .footer-brand {
+    font-family: 'Sora', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--sage-d);
+  }
+
+  .footer-disclaimer {
+    font-size: 9px;
+    color: var(--stone);
+    opacity: 0.6;
+    max-width: 300px;
+    line-height: 1.5;
+  }
+
+  /* Print button */
+  .print-btn {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    background: var(--sage-d);
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 12px 24px;
+    border-radius: 100px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  }
+
+  .print-btn:hover { background: var(--ink); }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  @media print {
+    body { background: white; padding: 0; }
+    .page { box-shadow: none; border-radius: 0; }
+    .print-btn { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- Header -->
+  <div class="report-header">
+    <div class="brand-row">
+      <span class="brand-name">Sunday</span>
+      <span class="brand-sep">·</span>
+      <span class="report-type">Health Vault — Pro</span>
+    </div>
+    <div class="report-label">Vet Visit Report</div>
+    <div class="report-title">Kopi's Medical Summary</div>
+    <div class="report-sub">Generated 21 Mar 2026 · Bring this to your appointment</div>
+  </div>
+
+  <!-- Dog profile -->
+  <div class="dog-profile">
+    <div class="dog-avatar">🐾</div>
+    <div class="dog-details">
+      <div class="dog-name">Kopi</div>
+      <div class="dog-meta">
+        <span class="dog-tag">Miniature Schnauzer</span>
+        <span class="dog-tag">Female · Spayed</span>
+        <span class="dog-tag">3 years 2 months</span>
+        <span class="dog-tag">7.4 kg</span>
+        <span class="dog-tag">DOB: 14 Jan 2023</span>
+      </div>
+    </div>
+    <div class="alert-badge">⚠️ Active Condition</div>
+  </div>
+
+  <!-- Body -->
+  <div class="report-body">
+
+    <!-- Alert -->
+    <div class="alert-box">
+      <div class="alert-icon">🚨</div>
+      <div>
+        <div class="alert-title">Known Allergy — Please Note</div>
+        <div class="alert-text">Kopi has a documented reaction to Amoxicillin (2024). Please avoid prescribing. Discuss alternatives if antibiotics are required.</div>
+      </div>
+    </div>
+
+    <!-- Active conditions -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon" style="background:#FEF0E4;">🩺</div>
+        <div class="section-title">Active Conditions</div>
+      </div>
+      <div class="condition-row">
+        <div>
+          <div class="condition-name">Atopic Dermatitis (Skin Allergy)</div>
+          <div class="condition-since">Ongoing since Dec 2024 · Managed with Apoquel</div>
+        </div>
+        <div class="condition-badge" style="background:#FEF0E4; color:#C87840;">Ongoing</div>
+      </div>
+      <div class="condition-row">
+        <div>
+          <div class="condition-name">Dental Tartar Buildup</div>
+          <div class="condition-since">Flagged Feb 2026 · Dental clean recommended</div>
+        </div>
+        <div class="condition-badge" style="background:#E4EEF6; color:#5A80A0;">Monitor</div>
+      </div>
+    </div>
+
+    <!-- Current medications -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon" style="background:#EAF3EE;">💊</div>
+        <div class="section-title">Current Medications</div>
+      </div>
+
+      <div class="med-row">
+        <div class="med-left">
+          <div class="med-dot"></div>
+          <div>
+            <div class="med-name">Apoquel (Oclacitinib) 5.4mg</div>
+            <div class="med-detail">Once daily · Started 14 Feb 2026<br>Prescribed by Mount Pleasant Animal Clinic</div>
+          </div>
+        </div>
+        <div class="med-status status-active">Active</div>
+      </div>
+
+      <div class="med-row">
+        <div class="med-left">
+          <div class="med-dot"></div>
+          <div>
+            <div class="med-name">NexGard Spectra (Flea & Tick)</div>
+            <div class="med-detail">Monthly · Last given 1 Mar 2026<br>Next dose due 1 Apr 2026</div>
+          </div>
+        </div>
+        <div class="med-status status-active">Active</div>
+      </div>
+
+      <div class="med-row">
+        <div class="med-left">
+          <div class="med-dot inactive"></div>
+          <div>
+            <div class="med-name">Amoxicillin 250mg</div>
+            <div class="med-detail">7-day course · Completed Aug 2024<br>⚠️ Adverse reaction noted — avoid</div>
+          </div>
+        </div>
+        <div class="med-status status-completed">Completed</div>
+      </div>
+    </div>
+
+    <!-- Vaccinations -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon" style="background:#E4F4EA;">💉</div>
+        <div class="section-title">Vaccination Status</div>
+      </div>
+
+      <div class="vax-row">
+        <div class="vax-left">
+          <div class="vax-check done">✓</div>
+          <div class="vax-name">Distemper / Parvovirus / Adenovirus (DHPPi)</div>
+        </div>
+        <div class="vax-dates">
+          <div class="vax-given">Given: 10 Jan 2025</div>
+          <div class="vax-due due-ok">Due: Jan 2026 ✓ Up to date</div>
+        </div>
+      </div>
+
+      <div class="vax-row">
+        <div class="vax-left">
+          <div class="vax-check done">✓</div>
+          <div class="vax-name">Rabies</div>
+        </div>
+        <div class="vax-dates">
+          <div class="vax-given">Given: 10 Jan 2025</div>
+          <div class="vax-due due-ok">Due: Jan 2028 ✓ Up to date</div>
+        </div>
+      </div>
+
+      <div class="vax-row">
+        <div class="vax-left">
+          <div class="vax-check due">!</div>
+          <div class="vax-name">Bordetella (Kennel Cough)</div>
+        </div>
+        <div class="vax-dates">
+          <div class="vax-given">Given: 5 Apr 2025</div>
+          <div class="vax-due due-soon">Due: 5 Apr 2026 · Due in 15 days</div>
+        </div>
+      </div>
+
+      <div class="vax-row">
+        <div class="vax-left">
+          <div class="vax-check done">✓</div>
+          <div class="vax-name">Leptospirosis</div>
+        </div>
+        <div class="vax-dates">
+          <div class="vax-given">Given: 10 Jan 2025</div>
+          <div class="vax-due due-ok">Due: Jan 2026 ✓ Up to date</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Health history -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon" style="background:#E4EEF6;">📋</div>
+        <div class="section-title">Health History</div>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot orange"></div>
+          <div class="timeline-date">14 FEB 2026</div>
+          <div class="timeline-title">Skin allergy flare-up — Mount Pleasant Animal Clinic</div>
+          <div class="timeline-notes">Increased scratching, redness on belly and paws. Prescribed Apoquel 5.4mg daily. Follow-up in 4 weeks. Dental tartar flagged for future clean.</div>
+          <span class="timeline-tag" style="background:#FEF0E4; color:#C87840;">Dermatology</span>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">10 JAN 2026</div>
+          <div class="timeline-title">Annual health check — Creature Comfort Vet</div>
+          <div class="timeline-notes">All vitals normal. Weight 7.4kg (stable). Recommended continued monthly flea/tick prevention. No concerns.</div>
+          <span class="timeline-tag" style="background:#E4F4EA; color:#3A8A5A;">Annual Check</span>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot red"></div>
+          <div class="timeline-date">3 AUG 2024</div>
+          <div class="timeline-title">Ear infection — Animal Recovery Centre</div>
+          <div class="timeline-notes">Left ear. Prescribed Amoxicillin 250mg 7-day course. ⚠️ Adverse reaction on day 4 — vomiting and lethargy. Discontinued. Switched to Clavulox. Resolved.</div>
+          <span class="timeline-tag" style="background:#FFE5E5; color:#CC3333;">⚠️ Adverse Reaction</span>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot blue"></div>
+          <div class="timeline-date">22 MAR 2024</div>
+          <div class="timeline-title">Spay procedure — Mount Pleasant Animal Clinic</div>
+          <div class="timeline-notes">Routine ovariohysterectomy. No complications. Full recovery in 10 days. E-collar worn for 14 days post-op.</div>
+          <span class="timeline-tag" style="background:#E4EEF6; color:#5A80A0;">Surgery</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="report-footer">
+    <div class="footer-left">
+      <div class="footer-brand">Sunday Health Vault</div>
+      <div style="margin-top:2px; font-size:10px; color:var(--stone);">Generated 21 Mar 2026 · Owner: Kristin</div>
+    </div>
+    <div class="footer-disclaimer">This report is a personal health log compiled by the pet owner. It is not a clinical document. Please verify all information with your veterinarian.</div>
+  </div>
+
+</div>
+
+<button class="print-btn" onclick="window.print()">⬇ Export PDF</button>
+
+</body>
+</html>
