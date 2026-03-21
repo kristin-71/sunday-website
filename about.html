@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Sunday — For Dog Parents</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sage: #8FAF9C;
+    --sage-d: #4A7A62;
+    --sage-l: #B3CCBE;
+    --sage-p: #EAF3EE;
+    --cream: #F6F3EC;
+    --grey: #E6E3DC;
+    --ink: #222222;
+    --stone: #888880;
+    --mist: #F0EDE6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 48px;
+    background: var(--cream);
+    border-bottom: 1px solid var(--grey);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Sora', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.5px;
+    text-decoration: none;
+  }
+
+  .nav-logo img {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--stone);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a.active { color: var(--ink); font-weight: 600; }
+
+  .nav-cta {
+    background: var(--ink);
+    color: white !important;
+    padding: 10px 20px;
+    border-radius: 100px;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 100px 80px 80px;
+    max-width: 760px;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--sage-d);
+    margin-bottom: 20px;
+  }
+
+  .hero-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 64px;
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -2.5px;
+    color: var(--ink);
+    margin-bottom: 28px;
+  }
+
+  .hero-sub {
+    font-size: 20px;
+    color: var(--stone);
+    line-height: 1.7;
+    max-width: 560px;
+  }
+
+  /* ── STORY BODY ── */
+  .story {
+    padding: 0 80px 80px;
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .story-text p {
+    font-size: 18px;
+    color: var(--stone);
+    line-height: 1.85;
+    margin-bottom: 28px;
+  }
+
+  .story-text p strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .story-text p:last-child { margin-bottom: 0; }
+
+  .story-aside {
+    position: sticky;
+    top: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .mascot-card {
+    background: var(--sage-p);
+    border-radius: 28px;
+    padding: 40px 24px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mascot-blob {
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    background: var(--sage-l);
+    border-radius: 50%;
+    opacity: 0.4;
+    top: -60px;
+    right: -60px;
+  }
+
+  .mascot-img {
+    width: 160px;
+    position: relative;
+    z-index: 2;
+    filter: drop-shadow(0 10px 20px rgba(34,34,34,0.12));
+  }
+
+  .mascot-label {
+    font-family: 'Sora', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--sage-d);
+    margin-top: 16px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .stat-card {
+    background: white;
+    border-radius: 20px;
+    border: 1px solid var(--grey);
+    padding: 20px 24px;
+    box-shadow: 0 4px 16px rgba(34,34,34,0.05);
+  }
+
+  .stat-number {
+    font-family: 'Sora', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -1px;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 13px;
+    color: var(--stone);
+    line-height: 1.5;
+  }
+
+  /* ── DIVIDER MOMENT ── */
+  .pull-quote {
+    background: var(--ink);
+    padding: 80px;
+    margin: 0;
+  }
+
+  .pull-quote-inner {
+    max-width: 720px;
+  }
+
+  .pull-quote p {
+    font-family: 'Sora', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: white;
+    line-height: 1.3;
+    letter-spacing: -1px;
+    margin-bottom: 24px;
+  }
+
+  .pull-quote p .accent {
+    color: var(--sage);
+  }
+
+  .pull-quote-attr {
+    font-size: 14px;
+    color: var(--stone);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .pull-quote-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--sage);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ── SUNDAY THE DOG ── */
+  .dog-section {
+    padding: 100px 80px;
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .dog-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .dog-img-card {
+    background: var(--mist);
+    border-radius: 28px;
+    padding: 40px 24px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .dog-img-card img {
+    width: 180px;
+    filter: drop-shadow(0 8px 20px rgba(34,34,34,0.1));
+    position: relative;
+    z-index: 2;
+  }
+
+  .dog-tag-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+
+  .dog-tag {
+    background: var(--sage-p);
+    color: var(--sage-d);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 100px;
+  }
+
+  .dog-text .eyebrow { margin-bottom: 16px; }
+
+  .dog-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 44px;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-bottom: 32px;
+  }
+
+  .dog-text p {
+    font-size: 17px;
+    color: var(--stone);
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  .dog-text p strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  /* ── BELIEF SECTION ── */
+  .belief {
+    padding: 100px 80px;
+    background: var(--sage-p);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .belief-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 44px;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-bottom: 28px;
+  }
+
+  .belief p {
+    font-size: 17px;
+    color: var(--stone);
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  .belief p:last-child { margin-bottom: 0; }
+
+  .belief-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .belief-card {
+    background: white;
+    border-radius: 20px;
+    border: 1px solid rgba(74,122,98,0.15);
+    padding: 24px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .belief-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .belief-card-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .belief-card-body {
+    font-size: 13px;
+    color: var(--stone);
+    line-height: 1.6;
+  }
+
+  /* ── CTA ── */
+  .cta-section {
+    padding: 100px 80px;
+    text-align: center;
+    background: white;
+  }
+
+  .cta-mascot {
+    width: 100px;
+    margin: 0 auto 24px;
+    display: block;
+    filter: drop-shadow(0 6px 16px rgba(34,34,34,0.1));
+  }
+
+  .cta-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 44px;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+
+  .cta-sub {
+    font-size: 17px;
+    color: var(--stone);
+    margin-bottom: 40px;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--ink);
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 18px 36px;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+
+  .cta-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(34,34,34,0.2);
+  }
+
+  .cta-note {
+    font-size: 13px;
+    color: var(--stone);
+    margin-top: 16px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: white;
+    padding: 48px 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-logo {
+    font-family: 'Sora', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-size: 13px;
+    color: var(--stone);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: white; }
+
+  .footer-copy {
+    font-size: 12px;
+    color: var(--stone);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { padding: 64px 24px 48px; }
+    .hero-title { font-size: 44px; }
+    .story { grid-template-columns: 1fr; padding: 0 24px 64px; }
+    .story-aside { position: static; }
+    .pull-quote { padding: 64px 24px; }
+    .pull-quote p { font-size: 26px; }
+    .dog-section { grid-template-columns: 1fr; padding: 64px 24px; }
+    .belief { grid-template-columns: 1fr; padding: 64px 24px; }
+    .cta-section { padding: 64px 24px; }
+    footer { padding: 40px 24px; flex-direction: column; gap: 24px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">
+    <img src="assets/icon.png" alt="Sunday">
+    Sunday
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#features">Features</a></li>
+    <li><a href="about.html" class="active">About Sunday</a></li>
+    <li><a href="index.html#curate">Curate</a></li>
+    <li><a href="index.html#waitlist" class="nav-cta">Join Waitlist</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="eyebrow">The story</div>
+  <h1 class="hero-title">Started with<br>one dog.</h1>
+  <p class="hero-sub">
+    Sunday is a Miniature Schnauzer. He's the reason this app exists — and the reason his mum built something she couldn't find anywhere else.
+  </p>
+</div>
+
+<!-- STORY -->
+<div class="story">
+  <div class="story-text">
+
+    <p>
+      Every time Kristin wanted to take Sunday out, she hit the same wall. Google Maps would say a place was pet-friendly. She'd show up — two outdoor tables, no shade, steps nobody mentioned. <strong>Singapore in the afternoon heat, with a nervous dog who doesn't like crowds.</strong> Sunday would shut down. The outing would fall flat. And she'd go home wondering why this was so hard.
+    </p>
+
+    <p>
+      She wasn't looking for a lot. A café where Sunday could actually sit comfortably. A park with enough space that he wouldn't feel cornered. A place where she could have brunch on a weekend and genuinely enjoy his company — not spend the whole time worrying about whether he was okay.
+    </p>
+
+    <p>
+      But the places side of it was only half the picture.
+    </p>
+
+    <p>
+      At one year old, Sunday was diagnosed with bilateral cataracts. He went through surgery — and with it came six different eye drops, five times a day, on alternating schedules. Some drops were bitter. He'd drool. He'd be uncomfortable. Kristin had to track everything: which drop, which eye, which hour, which day of the taper.
+    </p>
+
+    <p>
+      <strong>She had folders on her phone. Sticky notes. Calendar reminders. Messages to her husband for when she traveled for work.</strong> When the vet asked "when did this start?" she'd be scrolling through her camera roll hoping she'd saved something.
+    </p>
+
+    <p>
+      Three rounds of surgery. Secondary glaucoma three weeks after the second. Weeks of clinic visits with instruments near his eyes. Sunday lost what should have been his prime time as a puppy — toys put away, play restricted, no rough-housing. He went through more in his first two years than most dogs do in a lifetime.
+    </p>
+
+    <p>
+      And through all of it, Kristin was tracking everything by hand, in apps that weren't built for this, in notes nobody could find.
+    </p>
+
+    <p>
+      <strong>She isn't a developer.</strong> She didn't come from tech. She came from three years of being Sunday's primary caregiver and realising there wasn't a single app that did what she actually needed. So she decided to build it herself — not because she knew how, but because she knew it needed to exist.
+    </p>
+
+    <p>
+      If she wouldn't use it, it was useless. That was the only rule.
+    </p>
+
+  </div>
+
+  <div class="story-aside">
+    <div class="mascot-card">
+      <div class="mascot-blob"></div>
+      <img class="mascot-img" src="assets/mascot_happy.png" alt="Sunday the Schnauzer">
+      <div class="mascot-label">Sunday · Mini Schnauzer</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-number">3</div>
+      <div class="stat-label">rounds of surgery before<br>Sunday turned 3</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-number">6</div>
+      <div class="stat-label">different eye drops,<br>5 times a day</div>
+    </div>
+  </div>
+</div>
+
+<!-- PULL QUOTE -->
+<div class="pull-quote">
+  <div class="pull-quote-inner">
+    <p>"This is coming from a <span class="accent">mother who has been through a lot.</span> I just hope you find it useful."</p>
+    <div class="pull-quote-attr">
+      <div class="pull-quote-dot"></div>
+      Kristin, founder & Sunday's mum
+    </div>
+  </div>
+</div>
+
+<!-- SUNDAY THE DOG -->
+<div class="dog-section">
+  <div class="dog-visual">
+    <div class="dog-img-card">
+      <img src="assets/mascot_curious.png" alt="Sunday">
+    </div>
+    <div class="dog-tag-row">
+      <span class="dog-tag">Loyal</span>
+      <span class="dog-tag">Sensitive</span>
+      <span class="dog-tag">Takes time to warm up</span>
+    </div>
+  </div>
+
+  <div class="dog-text">
+    <div class="eyebrow">The dog behind the app</div>
+    <h2 class="dog-title">He's not easy.<br>That's the point.</h2>
+
+    <p>
+      Sunday isn't the dog who runs up to strangers. He's nervous around people he doesn't know. He doesn't like crowds. He needs space to feel safe, and he needs to trust you before he opens up.
+    </p>
+
+    <p>
+      <strong>But once he loves you, he's the most loyal presence in the room.</strong> He's sensitive in the way that matters — he picks up on everything. He knows when you're tired. He stays close. He's not loud about it. He doesn't need to be.
+    </p>
+
+    <p>
+      He's been through a lot for a dog his age. And he's still here — still curious, still gentle, still wanting to see what's around the next corner.
+    </p>
+
+    <p>
+      That's what this app is for. More corners. More places. More time doing the things he loves, with the people who love him.
+    </p>
+
+    <p>
+      <strong>Pets are for life.</strong> They only have ten, maybe fifteen years with us. Every Sunday counts.
+    </p>
+  </div>
+</div>
+
+<!-- BELIEF -->
+<div class="belief">
+  <div>
+    <div class="eyebrow">What we believe</div>
+    <h2 class="belief-title">Every pet is here to teach us something.</h2>
+    <p>
+      Sunday taught Kristin patience. He taught her to slow down, to choose quieter places, to be more intentional about where they go and what they do together.
+    </p>
+    <p>
+      He also taught her that being a good pawrent is hard — and that it gets a lot easier when you have the right tools.
+    </p>
+    <p>
+      Sunday was built for every pawrent who wants to give their dog more — more places, more memories, better care — and just needs a little help getting there.
+    </p>
+  </div>
+
+  <div class="belief-cards">
+    <div class="belief-card">
+      <div class="belief-icon">📍</div>
+      <div>
+        <div class="belief-card-title">Every place should be worth the trip</div>
+        <div class="belief-card-body">Not just "pet-friendly" on a listing. Actually good for your dog — with the details that matter.</div>
+      </div>
+    </div>
+    <div class="belief-card">
+      <div class="belief-icon">🏥</div>
+      <div>
+        <div class="belief-card-title">Health records should be effortless</div>
+        <div class="belief-card-body">No more folders, sticky notes, or scrolling through your camera roll at the vet.</div>
+      </div>
+    </div>
+    <div class="belief-card">
+      <div class="belief-icon">🐾</div>
+      <div>
+        <div class="belief-card-title">Pets are for life</div>
+        <div class="belief-card-body">They're only here for so long. Sunday exists to make every year count.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <img class="cta-mascot" src="assets/mascot_happy.png" alt="Sunday">
+  <h2 class="cta-title">Every dog deserves a Sunday.</h2>
+  <p class="cta-sub">Join the waitlist and Sunday will come find you when he's ready.</p>
+  <a href="index.html#waitlist" class="cta-btn">🐾 Join the Waitlist</a>
+  <p class="cta-note">Free · Singapore · iOS — coming soon</p>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Sunday</div>
+  <ul class="footer-links">
+    <li><a href="#">Privacy Policy</a></li>
+    <li><a href="#">Terms of Service</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <div class="footer-copy">© 2026 Sunday. Made with 🐾 in Singapore.</div>
+</footer>
+
+</body>
+</html>
