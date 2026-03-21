@@ -21,6 +21,7 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
 
   body {
     background: var(--cream);
@@ -799,15 +800,15 @@
     Sunday
   </a>
   <ul class="nav-links">
-    <li><a href="#">Features</a></li>
-    <li><a href="#">For Dog Parents</a></li>
-    <li><a href="#">Curate</a></li>
-    <li><a href="#" class="nav-cta">Join Waitlist</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#about">For Dog Parents</a></li>
+    <li><a href="#curate">Curate</a></li>
+    <li><a href="#waitlist" class="nav-cta">Join Waitlist</a></li>
   </ul>
 </nav>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="about">
   <div class="hero-left">
     <div class="hero-badge">
       <div class="hero-badge-dot"></div>
@@ -965,7 +966,7 @@
 </section>
 
 <!-- FEATURES -->
-<section class="features">
+<section class="features" id="features">
   <div class="section-eyebrow">Everything in one place</div>
   <h2 class="section-title">Built around your dog's whole life</h2>
 
@@ -1004,7 +1005,7 @@
 </section>
 
 <!-- CURATE SECTION -->
-<section class="curate-section">
+<section class="curate-section" id="curate">
   <div>
     <div class="section-eyebrow">Sunday's Picks</div>
     <h2 class="section-title">Products he'd actually use.</h2>
@@ -1054,7 +1055,7 @@
 </section>
 
 <!-- WAITLIST -->
-<section class="waitlist">
+<section class="waitlist" id="waitlist">
   <img class="waitlist-mascot" src="assets/mascot_curious.png" alt="Sunday mascot">
   <div class="section-eyebrow">Coming to Singapore</div>
   <h2 class="section-title">Sunday is almost ready.</h2>
