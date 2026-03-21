@@ -1060,11 +1060,50 @@
   <h2 class="section-title">Sunday is almost ready.</h2>
   <p class="waitlist-sub">Join the waitlist and he'll come find you when he's here.</p>
 
-  <form class="waitlist-form" onsubmit="return false;">
-    <input type="email" class="waitlist-input" placeholder="your@email.com">
-    <button class="waitlist-btn">Join the waitlist</button>
+  <form class="waitlist-form" id="waitlist-form">
+    <input type="email" class="waitlist-input" id="waitlist-email" placeholder="your@email.com" required>
+    <button class="waitlist-btn" id="waitlist-btn">Join the waitlist</button>
   </form>
-  <p class="waitlist-note">No spam. Sunday promises. 🐾</p>
+  <p class="waitlist-note" id="waitlist-note">No spam. Sunday promises. 🐾</p>
+
+  <script>
+    const SUPABASE_URL = 'https://svfnlgyzwramhpzqqoeh.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN2Zm5sZ3l6d3JhbWhwenFxb2VoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM2NjYzMjEsImV4cCI6MjA4OTI0MjMyMX0.bxZPiRrgW1bkc-C1X2hG7mop4JEcH5muRaE3WWqRMCI';
+
+    document.getElementById('waitlist-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('waitlist-email').value.trim();
+      const btn = document.getElementById('waitlist-btn');
+      const note = document.getElementById('waitlist-note');
+
+      btn.textContent = 'Joining...';
+      btn.disabled = true;
+
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({ email, source: 'website' })
+      });
+
+      if (res.ok) {
+        document.getElementById('waitlist-form').innerHTML = '<p style="font-family:Sora,sans-serif;font-size:18px;font-weight:700;color:#4A7A62;">Sunday will come find you. 🐾</p>';
+        note.style.display = 'none';
+      } else if (res.status === 409) {
+        note.textContent = "You're already on the list. Sunday hasn't forgotten you. 🐾";
+        btn.textContent = 'Join the waitlist';
+        btn.disabled = false;
+      } else {
+        note.textContent = 'Something went wrong. Try again.';
+        btn.textContent = 'Join the waitlist';
+        btn.disabled = false;
+      }
+    });
+  </script>
 </section>
 
 <!-- FOOTER -->
