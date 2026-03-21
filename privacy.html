@@ -56,9 +56,18 @@
   .toc a:hover { text-decoration: underline; }
   a { color: var(--sage-d); }
   .tag { display: inline-block; background: var(--sage-p); color: var(--sage-d); font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 100px; margin-left: 6px; vertical-align: middle; }
+  .top-nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; background: var(--bg); border-bottom: 1px solid var(--divider); position: sticky; top: 0; z-index: 100; max-width: 100%; margin: 0 -24px 48px; }
+  .top-nav-logo { font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: -0.5px; }
+  .top-nav-back { font-size: 13px; font-weight: 500; color: var(--stone); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+  .top-nav-back:hover { color: var(--ink); }
 </style>
 </head>
 <body>
+
+<nav class="top-nav">
+  <a class="top-nav-logo" href="/">Sunday</a>
+  <a class="top-nav-back" href="/">← Back to home</a>
+</nav>
 
 <div class="header">
   <div class="app-name">sunday<span>.</span></div>
