@@ -841,7 +841,7 @@
         <div class="avatar avatar-3">🦮</div>
         <div class="avatar avatar-4">🐾</div>
       </div>
-      <p class="social-text"><strong>1,200+ dog parents</strong> already on the waitlist</p>
+      <p class="social-text"><strong id="waitlist-count">...</strong> already on the waitlist</p>
     </div>
   </div>
 
@@ -1118,5 +1118,31 @@
   <div class="footer-copy">© 2026 Sunday. Made with 🐾 in Singapore.</div>
 </footer>
 
+<script>
+  (async () => {
+    const SUPABASE_URL = 'https://svfnlgyzwramhpzqqoeh.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN2Zm5sZ3l6d3JhbWhwenFxb2VoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM2NjYzMjEsImV4cCI6MjA4OTI0MjMyMX0.bxZPiRrgW1bkc-C1X2hG7mop4JEcH5muRaE3WWqRMCI';
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/waitlist?select=id`, {
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Prefer': 'count=exact',
+          'Range': '0-0'
+        }
+      });
+      const count = parseInt(res.headers.get('content-range')?.split('/')[1] || '0');
+      const el = document.getElementById('waitlist-count');
+      if (el && count > 0) {
+        el.textContent = count.toLocaleString() + ' dog parents';
+      } else if (el) {
+        el.textContent = 'Dog parents';
+      }
+    } catch {
+      const el = document.getElementById('waitlist-count');
+      if (el) el.textContent = 'Dog parents';
+    }
+  })();
+</script>
 </body>
 </html>
