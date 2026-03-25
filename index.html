@@ -19,10 +19,7 @@
     padding: 40px 24px;
     color: #222222;
   }
-  .mascot {
-    width: 140px;
-    margin-bottom: 24px;
-  }
+  .mascot { width: 140px; margin-bottom: 24px; }
   .wordmark {
     font-size: 32px;
     font-weight: 700;
@@ -37,6 +34,44 @@
     letter-spacing: 0.3px;
     text-align: center;
     line-height: 1.6;
+    margin-bottom: 32px;
+  }
+  .waitlist-form {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    max-width: 380px;
+  }
+  .waitlist-input {
+    flex: 1;
+    padding: 14px 18px;
+    border-radius: 100px;
+    border: 1.5px solid #D7C9B3;
+    background: white;
+    font-size: 14px;
+    font-family: 'Sora', sans-serif;
+    color: #222222;
+    outline: none;
+  }
+  .waitlist-input:focus { border-color: #8FAF9C; }
+  .waitlist-input::placeholder { color: #888880; }
+  .waitlist-btn {
+    padding: 14px 22px;
+    background: #222222;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 100px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Sora', sans-serif;
+    white-space: nowrap;
+  }
+  .waitlist-note {
+    font-size: 12px;
+    color: #888880;
+    margin-top: 12px;
+    text-align: center;
   }
 </style>
 </head>
@@ -44,5 +79,49 @@
   <img class="mascot" src="mascot_happy.png" alt="Sunday">
   <div class="wordmark">Sunday</div>
   <div class="tagline">Something new is coming.<br>Check back soon.</div>
+  <form class="waitlist-form" id="waitlist-form">
+    <input class="waitlist-input" id="waitlist-email" type="email" placeholder="your@email.com" required>
+    <button class="waitlist-btn" id="waitlist-btn">Notify me</button>
+  </form>
+  <p class="waitlist-note" id="waitlist-note">Be the first to know when Sunday launches.</p>
+
+<script>
+  const SUPABASE_URL = 'https://svfnlgyzwramhpzqqoeh.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN2Zm5sZ3l6d3JhbWhwenFxb2VoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM2NjYzMjEsImV4cCI6MjA4OTI0MjMyMX0.bxZPiRrgW1bkc-C1X2hG7mop4JEcH5muRaE3WWqRMCI';
+
+  document.getElementById('waitlist-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('waitlist-email').value.trim();
+    const btn = document.getElementById('waitlist-btn');
+    const note = document.getElementById('waitlist-note');
+
+    btn.textContent = 'Joining...';
+    btn.disabled = true;
+
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({ email, source: 'website' })
+    });
+
+    if (res.ok) {
+      document.getElementById('waitlist-form').innerHTML = '<p style="font-family:Sora,sans-serif;font-size:18px;font-weight:700;color:#4A7A62;">Sunday will come find you. 🐾</p>';
+      note.style.display = 'none';
+    } else if (res.status === 409) {
+      note.textContent = "You're already on the list. Sunday hasn't forgotten you. 🐾";
+      btn.textContent = 'Notify me';
+      btn.disabled = false;
+    } else {
+      note.textContent = 'Something went wrong. Try again.';
+      btn.textContent = 'Notify me';
+      btn.disabled = false;
+    }
+  });
+</script>
 </body>
 </html>
