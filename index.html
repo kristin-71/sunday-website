@@ -110,7 +110,7 @@
     });
 
     if (res.ok) {
-      document.getElementById('waitlist-form').innerHTML = '<p style="font-family:Sora,sans-serif;font-size:18px;font-weight:700;color:#4A7A62;">Sunday will come find you. 🐾</p>';
+      document.getElementById('waitlist-form').innerHTML = '<p style="font-family:Sora,sans-serif;font-size:18px;font-weight:700;color:#4A7A62;text-align:center;width:100%;">Sunday will come find you. 🐾</p>';
       note.style.display = 'none';
     } else if (res.status === 409) {
       note.textContent = "You're already on the list. Sunday hasn't forgotten you. 🐾";
