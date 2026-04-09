@@ -14,4 +14,5 @@ export type BlogPost = {
   status: string
   published_at: string
   created_at: string
+  cover_image_url: string | null
 }

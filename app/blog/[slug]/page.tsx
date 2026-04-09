@@ -184,9 +184,22 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
         <div style={{ height: 1, background: "var(--divider)", marginBottom: 16 }} />
 
-        <p style={{ fontSize: 13, color: "var(--stone)", marginBottom: 36 }}>
+        <p style={{ fontSize: 13, color: "var(--stone)", marginBottom: post.cover_image_url ? 24 : 36 }}>
           By Sunday · {formatDate(post.published_at)} · {readTime(post.content)}
         </p>
+
+        {/* Cover image */}
+        {post.cover_image_url && (
+          <div style={{ marginBottom: 36, borderRadius: 12, overflow: "hidden" }}>
+            <Image
+              src={post.cover_image_url}
+              alt={post.title}
+              width={680}
+              height={360}
+              style={{ width: "100%", height: 320, objectFit: "cover", display: "block" }}
+            />
+          </div>
+        )}
 
         {/* Body */}
         <div>{renderContent(post.content)}</div>

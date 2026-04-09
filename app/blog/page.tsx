@@ -102,6 +102,17 @@ export default async function BlogIndex() {
               <div key={post.id}>
                 <Link href={`/blog/${post.slug}`} style={{ textDecoration: "none", display: "block" }}>
                   <article style={{ padding: "24px 0", cursor: "pointer" }}>
+                    {post.cover_image_url && i === 0 && (
+                      <div style={{ marginBottom: 16, borderRadius: 12, overflow: "hidden" }}>
+                        <Image
+                          src={post.cover_image_url}
+                          alt={post.title}
+                          width={680}
+                          height={280}
+                          style={{ width: "100%", height: 220, objectFit: "cover", display: "block" }}
+                        />
+                      </div>
+                    )}
                     <span style={{
                       display: "flex", alignItems: "center", gap: 5,
                       fontWeight: 700, fontSize: 10,
