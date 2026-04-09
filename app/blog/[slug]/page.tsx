@@ -190,14 +190,17 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
         {/* Cover image */}
         {post.cover_image_url && (
-          <div style={{ marginBottom: 36, borderRadius: 12, overflow: "hidden" }}>
-            <Image
-              src={post.cover_image_url}
-              alt={post.title}
-              width={680}
-              height={360}
-              style={{ width: "100%", height: 320, objectFit: "cover", display: "block" }}
-            />
+          <div style={{ marginBottom: 36 }}>
+            <div style={{ borderRadius: 12, overflow: "hidden" }}>
+              <Image
+                src={post.cover_image_url}
+                alt={post.title}
+                width={680}
+                height={360}
+                style={{ width: "100%", height: 320, objectFit: "cover", display: "block" }}
+              />
+            </div>
+            <p style={{ fontSize: 10, color: "var(--stone)", opacity: 0.6, marginTop: 6, textAlign: "right" }}>Photo via Google Maps</p>
           </div>
         )}
 
@@ -222,7 +225,8 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                   />
                   <div style={{ padding: "10px 12px" }}>
                     <p style={{ fontSize: 13, fontWeight: 600, color: "var(--ink)", marginBottom: 2 }}>{p.name}</p>
-                    {p.neighbourhood && <p style={{ fontSize: 12, color: "var(--stone)" }}>{p.neighbourhood}</p>}
+                    {p.neighbourhood && <p style={{ fontSize: 12, color: "var(--stone)", marginBottom: 4 }}>{p.neighbourhood}</p>}
+                    <p style={{ fontSize: 10, color: "var(--stone)", opacity: 0.6 }}>Photo via Google Maps</p>
                   </div>
                 </div>
               ))}
