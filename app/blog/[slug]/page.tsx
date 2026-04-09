@@ -204,6 +204,32 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         {/* Body */}
         <div>{renderContent(post.content)}</div>
 
+        {/* Place photo grid */}
+        {post.place_photos && post.place_photos.length > 0 && (
+          <div style={{ margin: "32px 0" }}>
+            <p style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--sageD)", marginBottom: 12 }}>
+              Featured on Sunday
+            </p>
+            <div style={{ display: "grid", gridTemplateColumns: `repeat(${post.place_photos.length}, 1fr)`, gap: 12 }}>
+              {post.place_photos.map((p) => (
+                <div key={p.name} style={{ borderRadius: 12, overflow: "hidden", background: "var(--white)" }}>
+                  <Image
+                    src={p.photo_url}
+                    alt={p.name}
+                    width={220}
+                    height={160}
+                    style={{ width: "100%", height: 140, objectFit: "cover", display: "block" }}
+                  />
+                  <div style={{ padding: "10px 12px" }}>
+                    <p style={{ fontSize: 13, fontWeight: 600, color: "var(--ink)", marginBottom: 2 }}>{p.name}</p>
+                    {p.neighbourhood && <p style={{ fontSize: 12, color: "var(--stone)" }}>{p.neighbourhood}</p>}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* CTA */}
         <div style={{
           marginTop: 48, border: "1.5px solid var(--sageL)",

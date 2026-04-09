@@ -15,4 +15,5 @@ export type BlogPost = {
   published_at: string
   created_at: string
   cover_image_url: string | null
+  place_photos: { name: string; neighbourhood: string | null; photo_url: string }[] | null
 }
