@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { supabase, type BlogPost } from "@/lib/supabase"
 
 const TOPIC_ICONS: Record<string, string> = {
@@ -61,9 +62,13 @@ export default async function BlogIndex() {
         background: "var(--cream)",
       }}>
         <Link href="/" style={{
-          fontFamily: "'Sora', sans-serif", fontWeight: 700, fontSize: 22,
-          color: "var(--sageD)", textDecoration: "none", letterSpacing: "-0.3px",
-        }}>Sunday</Link>
+          display: "flex", alignItems: "center", gap: 6, textDecoration: "none",
+        }}>
+          <Image src="/app-icon.png" alt="Sunday" width={32} height={32} style={{ borderRadius: 8 }} />
+          <span style={{ fontFamily: "'Sora', sans-serif", fontWeight: 700, fontSize: 22, color: "var(--sageD)", letterSpacing: "-0.3px" }}>
+            unday
+          </span>
+        </Link>
         <Link href="/" style={{ fontSize: 13, color: "var(--stone)", textDecoration: "none" }}>
           Download the app
         </Link>

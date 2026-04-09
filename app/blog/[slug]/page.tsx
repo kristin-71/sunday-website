@@ -146,8 +146,9 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             stroke="#4A7A62" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M19 12H5M12 5l-7 7 7 7"/>
           </svg>
+          <Image src="/app-icon.png" alt="Sunday" width={28} height={28} style={{ borderRadius: 7 }} />
           <span style={{ fontFamily: "'Sora', sans-serif", fontWeight: 700, fontSize: 22, color: "var(--sageD)", letterSpacing: "-0.3px" }}>
-            Sunday
+            unday
           </span>
         </Link>
         <Link href="/" style={{ fontSize: 13, color: "var(--stone)", textDecoration: "none" }}>
