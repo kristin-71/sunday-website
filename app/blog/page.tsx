@@ -14,7 +14,7 @@ const TOPIC_ICONS: Record<string, string> = {
 async function getPosts(): Promise<BlogPost[]> {
   const { data, error } = await supabase
     .from("blog_posts")
-    .select("id, title, topic, slug, published_at, created_at")
+    .select("id, title, topic, slug, published_at, created_at, content")
     .eq("status", "published")
     .order("published_at", { ascending: false })
 
